@@ -1,0 +1,24 @@
+\documentclass[a4paper,14pt]{article}
+\nofiles
+\usepackage[english,ukrainian]{babel}
+\usepackage{indentfirst}
+\usepackage{extsizes}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
+\titleformat{\section}
+{\fontspec{Times New Roman}\bfseries}
+{\thesection}{1em}{}
+\setlength{\headsep}{1cm}
+\setlength{\parindent}{1cm}
+\begin{document}
+\setmainfont{Times New Roman}
+\setmonofont{Anonymous Pro}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\@oddhead}{\hfil\thepage}
+\makeatother
+\input{pp_pw1_inc.tex}
+\end{document}
