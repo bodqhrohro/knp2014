@@ -1,0 +1,69 @@
+@startuml
+left to right direction
+
+:Слухач: as Listener
+:Оператор: as Operator
+:Адміністратор: as Admin
+:Викладач: as Teacher
+
+Operator <|-- Admin
+
+(Керування курсами) as (courses)
+ (C) as (courses_c)
+ (R) as (courses_r)
+ (U) as (courses_u)
+ (D) as (courses_d)
+(Керування слухачами) as (listeners)
+ (C) as (listeners_c)
+ (R) as (listeners_r)
+ (U) as (listeners_u)
+ (D) as (listeners_d)
+(Створення заявки) as (application)
+(Створення звіту) as (report)
+(Керування обліковими записами) as (accounts)
+(Керування викладачами) as (teachers)
+ (C) as (teachers_c)
+ (R) as (teachers_r)
+ (U) as (teachers_u)
+ (D) as (teachers_d)
+(Керування розкладом) as (timetable)
+ (C) as (timetable_c)
+ (R) as (timetable_r)
+ (U) as (timetable_u)
+ (D) as (timetable_d)
+(Налаштування коефіціентів) as (coefsetup)
+(Обробка заявок) as (application_proc)
+
+Operator --> courses
+ courses <. courses_c : <<extend>>
+ courses <. courses_r : <<extend>>
+  Listener --> courses_r
+ courses <. courses_u : <<extend>>
+ courses <. courses_d : <<extend>>
+Operator --> listeners
+ listeners <. listeners_c : <<extend>>
+ listeners <. listeners_r : <<extend>>
+ listeners <. listeners_u : <<extend>>
+ listeners <. listeners_d : <<extend>>
+Listener <- application
+Operator --> report
+ report <. (Звіт за період)
+ report <. (Звіт за курсом)
+Operator --> accounts
+Admin --> accounts
+Operator --> teachers
+ teachers <. teachers_c : <<extend>>
+ teachers <. teachers_r : <<extend>>
+ teachers <. teachers_u : <<extend>>
+ teachers <. teachers_d : <<extend>>
+Operator --> timetable
+ timetable <. timetable_c : <<extend>>
+ timetable <. timetable_r : <<extend>>
+  Listener --> timetable_r
+  Teacher --> timetable_r
+ timetable <. timetable_u : <<extend>>
+ timetable <. timetable_d : <<extend>>
+Admin --> coefsetup
+Operator --> application_proc
+
+@enduml
