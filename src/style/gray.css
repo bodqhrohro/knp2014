@@ -1,0 +1,86 @@
+div.header1{
+ width: 100%;
+}
+body {
+ margin: 0px 0px 0px 0px;
+ background-color: rgb(128,128,128);
+}
+br {
+ margin: 2px;
+ display: block;
+}
+input.payment1{
+ border: 1px solid rgb(190,190,190);
+ background-color: rgb(240,240,240);
+ width: 30px;
+ height: 15px;
+ font: normal 10px Verdana, sans;
+}
+input.listadd,select.listadd{
+ border: 1px solid rgb(190,190,190);
+ background-color: rgb(240,240,240);
+ width: 100px;
+ height: 20px;
+ font: normal 12px Verdana, sans;
+}
+button.invis{
+ border: 0px;
+ background: transparent;
+ display: inline;
+ max-height: 20px;
+ max-width: 20px;
+}
+img {
+ vertical-align: middle;
+ padding-right: 8px;
+ border: 0px;
+}
+img.imglink {
+ border: none;
+}
+.k-dropdown, .k-numerictextbox {
+ width: 300px;
+}
+.sel_popup1 {
+ text-align: left;
+}
+.header1 {
+ position:relative;
+ z-index: 1000000;
+}
+.edited_row {
+ background-color: #ffffcc;
+}
+#notification_count:before {
+ content: '(';
+}
+#notification_count:after {
+ content: ')';
+}
+.notification {
+ margin: 5px;
+ border-width: 1px;
+ display: list-item;
+ line-height: 30px;
+}
+#notifications {
+ list-style-type: decimal;
+ list-style-position: inside;
+ display: list;
+}
+.logo_big {
+ position: absolute;
+ width: 100%;
+ text-align: center;
+ margin: 2em 0;
+ font-size: 10em;
+ color: #444;
+ text-shadow: -1px -1px 0px #222;
+ opacity: 80%;
+}
+#reportForm {
+ text-align: center;
+}
+#itemList {
+ text-align: left !important;
+}

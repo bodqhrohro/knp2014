@@ -1,0 +1,3 @@
+AddType text/html .ssi
+AddOutputFilter INCLUDES .ssi
+Options +Includes

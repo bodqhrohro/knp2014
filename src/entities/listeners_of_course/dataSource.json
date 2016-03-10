@@ -1,0 +1,27 @@
+{
+ "schema": {
+  "model": {
+   "id": "idListener",
+   "fields": {
+    "idCL": {
+    },
+    "Listener": {
+    },
+    "price": {
+     "type": "number"
+    },
+    "havePaid": {
+     "type": "number"
+    },
+    "debt": {
+    },
+    "affectedBy": {
+    }
+   }
+  }
+ },
+ "aggregate": [
+  { "field": "price", "aggregate": "sum" },
+  { "field": "havePaid", "aggregate": "sum" }
+ ]
+}

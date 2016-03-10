@@ -1,0 +1,23 @@
+{
+ "editable": {
+  "mode": "popup",
+  "template": "<input hidden='hidden' name='idCourse'><input name='payment' data-role='numerictextbox'/>",
+  "window": {
+   "title": "Оплата"
+  },
+  "confirmation": true
+ },
+ "toolbar": [
+  {"text":"Записать на курс"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "Course", "title": "Курс", "footerTemplate": "Итого:" },
+  { "field": "price", "title": "Требуемая оплата", "footerTemplate": "#: sum #", "aggregates": ["sum"] },
+  { "field": "havePaid", "title": "Оплачено", "footerTemplate": "#: sum #" },
+  { "field": "debt", "title": "Задолженность" },
+  { "field": "affectedBy", "title": "Изменено" },
+  { "command": [{"name": "full_paid", "text": "Полная оплата"}, {"name": "edit", "text": "Изменить"}, {"name": "destroy", "text": "Удалить"}], "width": "380px" }
+ ]
+}

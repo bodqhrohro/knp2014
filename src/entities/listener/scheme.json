@@ -1,0 +1,19 @@
+{
+ "toolbar": [
+  {"name":"create","text":"Добавить слушателя"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "Surname", "title": "Фамилия" },
+  { "field": "Name", "title": "Имя" },
+  { "field": "Patronymic", "title": "Отчество" },
+  { "field": "UGroup", "title": "Группа", "width": "100px" },
+  { "field": "Phone", "title": "Телефонный номер" },
+  { "field": "Email", "title": "E-mail" },
+  { "field": "Notes", "title": "Заметки" },
+  { "field": "Courses", "title": "Курсы", "editable": false, "template":"<a class='k-button' onclick='AjaxPopupUserGroups(#=idListener#,this.parentNode)'>#=Courses#</a>", "width": "200px" },
+  { "field": "affectedBy", "title": "Изменено" },
+  { "command": [{"name": "destroy", "text": "Удалить"}], "width": "120px" }
+ ]
+}

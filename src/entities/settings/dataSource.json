@@ -1,0 +1,13 @@
+{
+ "schema": {
+  "model": {
+   "id": "name",
+   "fields": {
+    "title": {
+    },
+    "value": {
+    }
+   }
+  }
+ }
+}

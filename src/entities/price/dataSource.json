@@ -1,0 +1,14 @@
+{
+ "schema": {
+  "model": {
+   "id": "degree",
+   "fields": {
+    "deglab": {
+    },
+    "salary": {
+     "type": "number"
+    }
+   }
+  }
+ }
+}

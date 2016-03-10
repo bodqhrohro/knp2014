@@ -1,0 +1,26 @@
+{
+ "schema": {
+  "model": {
+   "id": "idTeacher",
+   "fields": {
+    "Surname": {
+    },
+    "Name": {
+    },
+    "Patronymic": {
+    },
+    "Phone": {
+    },
+    "Email": {
+     "validation": {
+      "email": true
+     }
+    },
+    "degree": {
+    },
+    "affectedBy": {
+    }
+   }
+  }
+ }
+}

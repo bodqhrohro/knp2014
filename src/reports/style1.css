@@ -1,0 +1,28 @@
+h1{
+ font-size: 20pt;
+ text-align: center;
+}
+h5{
+ font-size: 12pt;
+ text-align: center;
+}
+table{
+ font-size: 12pt;
+ border: solid 1pt Black;
+ width: 100%;
+ border-spacing: 0;
+}
+td,th{
+ border: solid 0.4pt Black;
+ border-collapse: collapse;
+}
+td.cell1{
+ text-align: center;
+ vertical-align: top;
+}
+th{
+ text-align: center;
+}
+.resrow1{
+ font-weight: bold;
+}

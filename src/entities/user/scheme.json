@@ -1,0 +1,19 @@
+{
+ "editable": {
+  "mode": "popup",
+  "template": "<input hidden='hidden' name='login'><input name='password' data-role='textbox'/>",
+  "window": {
+   "title": "Новый пароль:"
+  },
+  "confirmation": true
+ },
+ "toolbar": [
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "login", "title": "Логин" },
+  { "field": "type", "title": "Роль" },
+  { "command": [{"name": "role", "text": "Сменить роль"}, {"name": "edit", "text": "Сменить пароль"}, {"name": "destroy", "text": "Удалить"}], "width": "500px" }
+ ]
+}

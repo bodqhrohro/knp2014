@@ -1,0 +1,12 @@
+{
+ "toolbar": [
+  {"name":"create","text":"Добавить степень"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "deglab", "title": "Учёная степень" },
+  { "field": "salary", "title": "Зарплата" },
+  { "command": [{"name": "destroy", "text": "Удалить"}], "width": "120px" }
+ ]
+}

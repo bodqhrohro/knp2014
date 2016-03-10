@@ -1,0 +1,17 @@
+{
+ "toolbar": [
+  {"name":"create","text":"Добавить преподавателя"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "Surname", "title": "Фамилия" },
+  { "field": "Name", "title": "Имя" },
+  { "field": "Patronymic", "title": "Отчество" },
+  { "field": "Phone", "title": "Телефонный номер" },
+  { "field": "Email", "title": "E-mail" },
+  { "field": "degree", "title": "Учёная степень", "template": "#= e(data.deglab==null?'':data.deglab) #" },
+  { "field": "affectedBy", "title": "Изменено" },
+  { "command": [{"name": "destroy", "text": "Удалить"}], "width": "120px" }
+ ]
+}

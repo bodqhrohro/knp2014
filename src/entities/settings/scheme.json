@@ -1,0 +1,10 @@
+{
+ "toolbar": [
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "title", "title": "Название" },
+  { "field": "value", "title": "Значение" }
+ ]
+}

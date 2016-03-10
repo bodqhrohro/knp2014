@@ -1,0 +1,42 @@
+{
+ "toolbar": [
+  {"name":"create","text":"Добавить курс"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "Name", "title": "Название" },
+  { "field": "Description", "title": "Описание" },
+  { "field": "idTeacher", "title": "Преподаватель", "template": "#= e(data.TSNP==null?'':data.TSNP) #" },
+  { "field": "DateBegin", "title": "Дата начала", "format": "{0: dd-MM-yyyy}" },
+  { "field": "DateEnd", "title": "Дата окончания", "format": "{0: dd-MM-yyyy}" },
+  { "field": "price", "title": "Стоимость", "template": "#= e(data.price?data.price:'Авто') #" },
+  { "field": "hours", "title": "Часы" },
+  { "field": "state", "title": "Состояние", "template": "#= e(courses2014.course_states[data['state']]) #" },
+  { "field": "spec", "title": "Специальный?" },
+  { "field": "idListener", "title": "Слушатель" },
+  { "field": "havePaid", "title": "Оплачено" },
+  { "field": "debt", "title": "Задолженность" },
+  { "field": "affectedBy", "title": "Изменено" },
+  { "command": [{"name": "destroy", "text": "Удалить"}], "width": "120px" }
+ ],
+ "filterable": {
+  "extra": false,
+  "messages": {
+   "filter": "Поиск",
+   "clear": "Очистить",
+   "info": "Тип фильтра:"
+  },
+  "operators": {
+   "string": {
+    "startsWith": "По первым буквам",
+    "contains": "Содержащие строку",
+    "doesnotcontain": "Не содержащие строку"
+   },
+   "date": {
+   },
+   "number": {
+   }
+  }
+ }
+}
