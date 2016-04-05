@@ -1,14 +1,16 @@
 \documentclass[a4paper,14pt]{article}
 \nofiles
-\usepackage[english,ukrainian]{babel}
+\usepackage{polyglossia}
 \usepackage{indentfirst}
 \usepackage{extsizes}
 \usepackage{fontspec}
 \usepackage{titlesec}
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
-\usepackage{longtable}
+\usepackage{supertabular}
 \usepackage{multirow}
+\usepackage[below]{placeins}
+\usepackage[absolute]{textpos}
 \usepackage{standalone}
 \usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
 \titleformat{\section}
@@ -16,9 +18,12 @@
 {\thesection}{1em}{}
 \setlength{\headsep}{1cm}
 \setlength{\parindent}{1cm}
-\begin{document}
 \setmainfont{Times New Roman}
 \setmonofont{Anonymous Pro}
+\setdefaultlanguage{ukrainian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont[Mapping=tex-text]{Times New Roman}
+\begin{document}
 \pagestyle{empty}
 \makeatletter
 \renewcommand{\@oddhead}{\hfil\thepage}

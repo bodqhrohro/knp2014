@@ -8,31 +8,40 @@ left to right direction
 
 Operator <|-- Admin
 
-(Керування курсами) as (courses)
+(Керувати курсами) as (courses)
  (C) as (courses_c)
  (R) as (courses_r)
  (U) as (courses_u)
  (D) as (courses_d)
-(Керування слухачами) as (listeners)
+(Керувати слухачами) as (listeners)
  (C) as (listeners_c)
  (R) as (listeners_r)
  (U) as (listeners_u)
  (D) as (listeners_d)
-(Створення заявки) as (application)
-(Створення звіту) as (report)
-(Керування обліковими записами) as (accounts)
-(Керування викладачами) as (teachers)
+(Створити заявку) as (application)
+(Створити звіт) as (report)
+(Керувати обліковими записами) as (accounts)
+ (Обробити новий обліковий запис) as (accounts_proc)
+ (R) as (accounts_r)
+ (Скинути пароль) as (accounts_reset)
+ (D) as (accounts_d)
+(Керувати викладачами) as (teachers)
  (C) as (teachers_c)
  (R) as (teachers_r)
  (U) as (teachers_u)
  (D) as (teachers_d)
-(Керування розкладом) as (timetable)
+(Керувати розкладом) as (timetable)
  (C) as (timetable_c)
  (R) as (timetable_r)
  (U) as (timetable_u)
  (D) as (timetable_d)
-(Налаштування коефіціентів) as (coefsetup)
-(Обробка заявок) as (application_proc)
+(Налаштувати коефіціент) as (coefsetup)
+(Обробити заявку) as (application_proc)
+(Авторизуватися) as (authorization)
+(Зареєструватися) as (registration)
+(Записати на курс) as (enroll)
+(Відрахувати з курсу) as (senddown)
+(Прийняти оплату) as (payment)
 
 Operator --> courses
  courses <. courses_c : <<extend>>
@@ -47,10 +56,13 @@ Operator --> listeners
  listeners <. listeners_d : <<extend>>
 Listener <- application
 Operator --> report
- report <. (Звіт за період)
- report <. (Звіт за курсом)
-Operator --> accounts
+ report <. (Створити звіт за період) : <<extend>>
+ report <. (Створити звіт за курсом) : <<extend>>
 Admin --> accounts
+ accounts <. accounts_proc : <<extend>>
+ accounts <. accounts_r : <<extend>>
+ accounts <. accounts_reset : <<extend>>
+ accounts <. accounts_d : <<extend>>
 Operator --> teachers
  teachers <. teachers_c : <<extend>>
  teachers <. teachers_r : <<extend>>
@@ -65,5 +77,14 @@ Operator --> timetable
  timetable <. timetable_d : <<extend>>
 Admin --> coefsetup
 Operator --> application_proc
+Listener --> registration
+Teacher --> registration
+Operator --> registration
+Listener --> authorization
+Teacher --> authorization
+Operator --> authorization
+Operator --> enroll
+Operator --> senddown
+Operator --> payment
 
 @enduml
