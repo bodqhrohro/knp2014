@@ -1,20 +1,27 @@
 \begin{tikzpicture}
+\makeatletter
+\tikzset{
+ circle connection bar/.style={rectangle,draw=\tikz@concept@color,every circle connection bar},
+ every concept/.append style={minimum size=0cm, color=black, fill=white},
+ concept/.style={circle,draw=\tikz@concept@color,every concept},
+ every node/.append style={concept}
+} \makeatother
 \path[
  mindmap,
  scale=0.8,
- concept color=white,
  level 1 concept/.append style={sibling angle=120},
  level 2 concept/.append style={sibling angle=60},
  level 3 concept/.append style={sibling angle=30},
- sys/.style={concept, font=\footnotesize}
+ level 4 concept/.append style={sibling angle=32,text width=1cm},
+ sys/.style={concept, font=\footnotesize},
 ]
 node [sys] {Система обліку платних курсів\\із підтримкою самостійного запису слухачів через мережу Інтернет} [clockwise from=210]
  child {
   node {Вхідний потік} [clockwise from=330]
    child { node {Хто?} [clockwise from=340]
     child { node {Оператори} }
-    child { node {Адміністратор} }
-    child { node {Слухачі}
+    child { node [text width=1.4cm] {Адміністратор} }
+    child [sibling angle=32] { node {Слухачі} [clockwise from=330]
      child { node {Студенти} }
      child { node {Сторонні} }
     }
@@ -23,7 +30,7 @@ node [sys] {Система обліку платних курсів\\із під
     child { node {Дані слухачів} }
     child { node {Курси} }
     child { node {Дані викладачів} }
-    child { node {Коефіціенти} }
+    child { node [text width=1.2cm] {Коефіціенти} }
     child { node {Розклад курсів} }
    }
    child { node {Де?} [clockwise from=200]
@@ -36,15 +43,15 @@ node [sys] {Система обліку платних курсів\\із під
    }
    child { node {Як?} [clockwise from=150]
     child { node {Ручне введення} }
-    child { node {Імпорт з системи електронного деканату} }
+    child [sibling angle=45] { node {Імпорт з системи електронного деканату} }
    }
  } child {
-  node {Внутрішній потік} [clockwise from=210]
+  node [text width=2.5cm]{Внутрішній потік} [clockwise from=210]
    child { node {Хто?} }
    child { node {Що?} 
-    child { node {Збереження даних} }
+    child { node [text width=1.2cm] {Збереження даних} }
     child { node {Контроль цілісності} }
-    child { node {Розрахунок вартості курсу} }
+    child { node [text width=1.2cm] {Розрахунок вартості курсу} }
    }
    child { node {Де?} [clockwise from=105]
     child { node {Web-сервер} }
@@ -61,37 +68,37 @@ node [sys] {Система обліку платних курсів\\із під
    child { node {Хто?} [clockwise from=120]
     child { node {Викладачі} }
     child { node {Оператори} }
-    child { node {Адміністратор} }
-    child { node {Слухачі} [clockwise from=10]
+    child { node [text width=1.4cm] {Адміністратор} }
+    child { node {Слухачі} [clockwise from=30]
      child { node {Студенти} }
      child { node {Сторонні} }
     }
    }
    child { node {Що?} [clockwise from=35]
-    child { node {Сповіщення} }
+    child { node [text width=1.2cm] {Сповіщення} }
     child { node {Звіти} 
      child { node {За період} }
      child { node {За курсом} }
     }
     child { node {Розклад} }
    }
-   child { node {Де?} [clockwise from=30]
+   child { node {Де?} [clockwise from=10]
     child { node {Web-сайт} }
     child { node {Кафедра СПЗ} }
-    child { node {Бухгалтерія} }
+    child { node [text width=1.2cm] {Бухгалтерія} }
    }
    child { node {Коли?} [clockwise from=340]
     child { node {Кінець семестру} }
     child { node {Під час курсів} }
    }
-   child { node {Як?} [clockwise from=310]
-    child { node {Звіти} 
+   child { node {Як?} [clockwise from=300]
+    child { node {Звіти} [clockwise from=320]
      child { node {У файл} }
      child { node {Друк} }
     }
-    child { node {Сповіщення} [clockwise from=280]
+    child { node [text width=1.2cm] {Сповіщення} [clockwise from=280]
      child { node {На e-mail} }
-     child { node {На сайті} }
+     child [sibling angle=40] { node {На сайті} }
     }
    }
  };
