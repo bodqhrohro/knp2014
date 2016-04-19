@@ -1,10 +1,11 @@
 \documentclass[a4paper,14pt]{article}
 \nofiles
+%\usepackage{showframe}
 \usepackage{polyglossia}
 \usepackage{indentfirst}
 \usepackage{extsizes}
 \usepackage{fontspec}
-\usepackage{titlesec}
+\usepackage[rm,center,uppercase,tiny]{titlesec}
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
 \usepackage{supertabular}
@@ -13,9 +14,7 @@
 \usepackage[absolute]{textpos}
 \usepackage{standalone}
 \usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
-\titleformat{\section}
-{\fontspec{Times New Roman}\bfseries}
-{\thesection}{1em}{}
+\titlelabel{tist\thetitle\ }
 \setlength{\headsep}{1cm}
 \setlength{\parindent}{1cm}
 \setmainfont{Times New Roman}

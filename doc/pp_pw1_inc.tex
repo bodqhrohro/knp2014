@@ -1,3 +1,16 @@
+\section{Бізнес-вимоги}
+\subsection{Опис предметної області}
+
+Суб'єкти:
+
+\begin{itemize}
+\item Слухачі --- особи, що можуть записуватися на курси або вже записані на деякі курси.
+\item Викладачі --- особи, що ведуть певні курси.
+\item Оператори --- допоміжний персонал та довірені особи, що займаються записом слухачів, приймають оплати та формують звіти.
+\item Адміністратори --- особи, що безпосередньо завідують курсами, дають завдання операторам та можуть виконувати їх функції.
+\end{itemize}
+
+\noindent
 \begin{tikzpicture}
 \makeatletter
 \tikzset{
@@ -103,19 +116,18 @@ node [sys] {Система обліку платних курсів\\із під
    }
  };
 \end{tikzpicture}
-\newpage
 
-\section*{Проблеми}
+\subsection{Проблеми}
 
 \begin{itemize}
  \item Відсутність актуальної інформації про наявні курси в мережі Інтернет.
- \item Необхідність відвідувати кафедру СПЗ для реєстрації на курс, черги, ручне введення контактних даних через операторів.
- \item Зберігання інформації в текстових документах та ручне формування звітів.
- \item Ручне внесення даних у бланк договору.
+ \item Необхідність слухачам відвідувати кафедру СПЗ для реєстрації на курс, черги, ручне введення контактних даних через операторів.
+ \item Зберігання відомостей про курси у текстових документах та ручне формування звітів.
+ \item Ручне заповнення бланку договору.
  \item Слухачі забувають розклад курсів, а викладачі шукають вільну аудиторію для проведення курсів.
 \end{itemize}
 
-\section*{Аналогічні системи}
+\subsection{Аналогічні системи}
 
 \begin{itemize}
  \item 1C: Бухгалтерія
@@ -125,7 +137,7 @@ node [sys] {Система обліку платних курсів\\із під
 
 \newpage
 
-\section*{Діаграма варіантів використання}
+\section{Діаграма варіантів використання}
 
 \begin{flushright}
  \begin{textblock*}{5cm}(12cm,5cm)
@@ -143,23 +155,30 @@ node [sys] {Система обліку платних курсів\\із під
 
 \newpage
 
-\section*{Опис варіантів використання}
+\section{Опис варіантів використання}
 
 \newcommand{\rowspan}[2]{
- \multirow{#1}{*}{#2}
+ \multirow{1}{*}[
+  \dimexpr#1 / 2\relax
+ ]{#2}
 }
+
 \newcounter{usecase_c}
 \newcounter{scenario_c}
 \newcounter{extension_c}
 \newcounter{extensionset_c}
 \newcounter{extension_for}
-\newcounter{extension_wc}
+\newlength{\spanHeight}
+\newbox\tmpparbox
+
 \newcommand{\usecase}[9]{
+
  \stepcounter{usecase_c}
  \setcounter{scenario_c}{0}
  \setcounter{extension_c}{0}
  \setcounter{extension_for}{1}
- \setcounter{extension_wc}{0}
+ \setlength{\spanHeight}{0pt}
+
  Таблиця \arabic{usecase_c}: #1
 
  \nopagebreak[4]
@@ -180,13 +199,25 @@ node [sys] {Система обліку платних курсів\\із під
  \FloatBarrier
 }
 \def\auth{аутентифікований та авторизований}
-\newcommand{\scenario}[1]{\stepcounter{scenario_c} & \arabic{scenario_c}. #1. \\ \cline{2-2}}
-\newcommand{\lastscenario}[1]{\stepcounter{scenario_c} \rowspan{-\value{scenario_c}}{Основний сценарій} & \arabic{scenario_c}. #1. \\}
+\newcommand{\scenario}[1]{\stepcounter{scenario_c} &
+ \global\sbox{\tmpparbox}{\parbox{11.9cm}{\arabic{scenario_c}. #1.}}
+ \global\addtolength{\spanHeight}{\ht\tmpparbox}
+ \global\addtolength{\spanHeight}{7pt}
+ \arabic{scenario_c}. #1. \\ \cline{2-2}
+}
+\newcommand{\lastscenario}[1]{\stepcounter{scenario_c} \rowspan{\spanHeight}{Основний сценарій} \global\setlength{\spanHeight}{0pt} & \arabic{scenario_c}. #1. \\}
 \newcommand{\extensionfor}[1]{\setcounter{extensionset_c}{0} \setcounter{extension_for}{\numexpr#1\relax}}
-\newcommand{\newextensionset}[1]{\stepcounter{extension_wc} \stepcounter{extensionset_c} \setcounter{extension_c}{0} & \arabic{extension_for}.\Asbuk{extensionset_c}. #1. \\ \cline{2-2}}
-\newcommand{\lastnewextensionset}[1]{\stepcounter{extension_wc} \stepcounter{extensionset_c} \setcounter{extension_c}{0} \rowspan{-\value{extension_wc}}{Розширення} & \arabic{extension_for}.\Asbuk{extensionset_c}. #1. \\ \cline{2-2}}
-\newcommand{\extension}[1]{\stepcounter{extension_wc} \stepcounter{extension_c} & \arabic{extension_for}.\Asbuk{extensionset_c}.\arabic{extension_c}. #1. \\ \cline{2-2}}
-\newcommand{\lastextension}[1]{\stepcounter{extension_wc} \stepcounter{extension_c} \rowspan{-\value{extension_wc}}{Розширення} & \arabic{extension_for}.\Asbuk{extensionset_c}.\arabic{extension_c}. #1. \\}
+\newcommand{\extensionbox}[3]{
+ #3 &
+ \global\sbox{\tmpparbox}{\parbox{11.9cm}{\arabic{extension_for}.\Asbuk{extensionset_c}.#2 #1.}}
+ \global\addtolength{\spanHeight}{\ht\tmpparbox}
+ \global\addtolength{\spanHeight}{7pt}
+ \arabic{extension_for}.\Asbuk{extensionset_c}.#2 #1.
+}
+\newcommand{\newextensionset}[1]{\stepcounter{extensionset_c} \setcounter{extension_c}{0} \extensionbox{#1}{}{} \\ \cline{2-2}}
+\newcommand{\lastnewextensionset}[1]{\stepcounter{extensionset_c} \setcounter{extension_c}{0} \extensionbox{#1}{}{\rowspan{\spanHeight}{Розширення}} \\ \cline{2-2}}
+\newcommand{\extension}[1]{\stepcounter{extension_c} \extensionbox{#1}{\arabic{extension_c}.}{} \\ \cline{2-2}}
+\newcommand{\lastextension}[1]{\stepcounter{extension_c} \extensionbox{#1}{\arabic{extension_c}.}{\rowspan{\spanHeight}{Розширення}} \\}
 \newcommand{\noext}{Розширення & ---\\}
 
 \usecase{Видалити курс}{Оператор}{Система}{Мета користувача}{Оператор бажає прибрати з системи помилково створений або скасований курс}{Курс є в системі, оператор \auth}{Курс щез зі списку курсів}{
@@ -318,6 +349,7 @@ node [sys] {Система обліку платних курсів\\із під
 \lastscenario{Адміністратор встановлює нове значення коефіціенту}
 }{\noext}
 
+\newpage
 \usecase{Обробити заявку}{Оператор, слухач}{Система}{Мета користувача}{Оператор має намір обробити нові сповіщення}{Оператор \auth}{Слухач із вказаними в заявці даними з'явився в системі та записаний на вказаний у заявці курс або заявка просто зникла зі сповіщень}{
 \scenario{Оператор обирає сповіщення}
 \scenario{Оператор підтверджує додання даних з заявки}
