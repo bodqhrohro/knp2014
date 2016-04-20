@@ -1,7 +1,6 @@
 \documentclass[a4paper,14pt]{article}
 \nofiles
 %\usepackage{showframe}
-\usepackage{polyglossia}
 \usepackage{indentfirst}
 \usepackage{extsizes}
 \usepackage{fontspec}
@@ -16,7 +15,9 @@
 \usepackage{diagbox}
 \usepackage{standalone}
 \usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
-\titlelabel{tist\thetitle\ }
+\titleformat{\section}{\centering}{}{0pt}{\thesection\ \uppercase}{}
+\titleformat{\subsection}{\centering}{}{0pt}{\thesubsection\ \uppercase}{}
+\usepackage{polyglossia}
 \setlength{\headsep}{1cm}
 \setlength{\parindent}{1cm}
 \setmainfont{Times New Roman}
