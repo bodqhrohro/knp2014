@@ -14,6 +14,7 @@
 \usepackage[absolute]{textpos}
 \usepackage{diagbox}
 \usepackage{standalone}
+\usepackage{hyperref}
 \usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
 \titleformat{\section}{\centering}{}{0pt}{\thesection\ \uppercase}{}
 \titleformat{\subsection}{\centering}{}{0pt}{\thesubsection\ \uppercase}{}
@@ -25,10 +26,13 @@
 \setdefaultlanguage{ukrainian}
 \setotherlanguage{english}
 \newfontfamily\cyrillicfont[Mapping=tex-text]{Times New Roman}
+\newfontfamily\cyrillicfonttt{Anonymous Pro}
 \begin{document}
 \pagestyle{empty}
 \makeatletter
 \renewcommand{\@oddhead}{\hfil\thepage}
 \makeatother
 \input{pp_pw1_inc.tex}
+
+Посилання на цей документ: \url{https://github.com/bodqhrohro/knp2014/raw/master/doc/pp_pw1.pdf}
 \end{document}
