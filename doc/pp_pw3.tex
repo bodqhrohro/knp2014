@@ -8,6 +8,8 @@
 \usepackage{standalone}
 \usepackage{hyperref}
 \usepackage{supertabular}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, chains}
 \usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
 \titleformat{\section}{\centering}{}{0pt}{\thesection\ \uppercase}{}
 \titleformat{\subsection}{\centering}{}{0pt}{\thesubsection\ \uppercase}{}
@@ -25,8 +27,10 @@
 \pagestyle{empty}
 \makeatletter
 \renewcommand{\@oddhead}{\hfil\thepage}
+\renewcommand{\@oddfoot}{\raisebox{-1cm}{\parbox[b]{\textwidth}{
+\fontsize{10pt}{12pt} \selectfont
+Посилання на цей документ: \url{https://github.com/bodqhrohro/knp2014/raw/master/doc/pp_pw3.pdf}
+}}}
 \makeatother
 \input{pp_pw3_inc.tex}
-
-Посилання на цей документ: \url{https://github.com/bodqhrohro/knp2014/raw/master/doc/pp_pw3.pdf}
 \end{document}
