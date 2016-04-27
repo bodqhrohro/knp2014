@@ -1,0 +1,4 @@
+\newcounter{imgcount}
+\newcounter{tabcount}
+\def\imglabel#1{\addtocounter{imgcount}{1} \begin{center}Рис. \theimgcount . #1 \end{center}}
+\def\tablabel#1{\addtocounter{tabcount}{1} \par Таблиця \thesection .\thetabcount\ --- #1\\}

@@ -1,0 +1,130 @@
+@startuml
+
+class AccessControl {
+	+affectedBy : int
+}
+
+class IndCourse {
+}
+
+class Course {
+	+id : int
+	+Name : String
+	+Description : String
+	+idTeacher : int
+	+idTeacher2 : int
+	-price : float
+	+hours : int
+	+state : Enum
+	+getPrice() : float
+	{static} filterOutListener(Listener) : Course[0..*]
+	{static} getRange(start : Date, end : Date) : Course[0..*]
+}
+
+class Contact {
+	+Name : String
+	+Surname : String
+	+Patronymic : String
+	+Phone : String
+	+Email : String
+	+getSNP() : String
+}
+
+class Listener {
+	+id : int
+	+UGroup : String
+	+Notes : String
+	+confirm(bool)
+	{static} filterOutCourse(Listener) : Listener[0..*]
+	{static} getUGroups() : String[0..*]
+}
+
+class Teacher {
+	+id : int
+	+idDegree : int
+}
+
+class CourseListener {
+	+id : int
+	+idListener : int
+	+idCourse : int
+	+mark : int
+	+confirm(bool)
+	{static} countApplications() : CourseListener[0..*]
+}
+
+class Payment {
+	+id : int
+	+idCourseListener : int
+	+delta : float
+	+timestamp : Timestamp
+}
+
+class Degree {
+	+id : int
+	+label : String
+	+salary : float
+}
+
+class Coefficients {
+	+id : int
+	+name : String
+	+value : float
+}
+
+class Report {
+	+generate() : File
+}
+
+class TermReport {
+	+dateBegin : Date
+	+dateEnd : Date
+}
+
+class CourseReport {
+	+course : int
+}
+
+class Lesson {
+	+id : int
+	+idCourse : int
+	+date : Date
+	+time : Time
+	+type : Enum
+}
+
+class User {
+	+login : String
+	+password : String
+	+salt : String
+	+type : Enum
+	+session : String
+	{static} getNonConfirmed() : User[0..*]
+	{static} countNonConfirmed() : User[0..*]
+	{static} getCurrentUser(session : String) : User
+	{static} isLoginPresent(login : String) : boolean
+}
+
+IndCourse --|> Course
+Listener --|> Contact
+Teacher --|> Contact
+Course --|> AccessControl
+Contact --|> AccessControl
+CourseListener --|> AccessControl
+Payment --|> AccessControl
+TermReport --|> Report
+CourseReport --|> Report
+
+Course "1" -- "*" CourseListener
+IndCourse "1" -- "1" CourseListener
+Listener "1" -- "*" CourseListener
+CourseListener "1" -- "*" Payment
+Course "1" -- "*" Lesson
+Course "*" -- "1..2" Teacher
+Teacher "*" -- "1" Degree
+Course ..> Coefficients : price calculation
+CourseReport "1" -- "1" Course
+TermReport "1" -- "*" Course
+AccessControl "*" -- "1" User
+
+@enduml

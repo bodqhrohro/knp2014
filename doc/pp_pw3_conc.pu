@@ -1,0 +1,29 @@
+@startuml
+
+class Слухач
+class Викладач
+class Коефіціент
+class Курс
+class "Слухач курсу" as course_listener
+class Платіж
+class Звіт
+class Заявка
+class "Звіт за курсом" as course_report
+class "Звіт за період" as term_report
+class "Обліковий запис" as account
+class Розклад
+
+Викладач "1..2" -up-> "*" Курс : вести
+Слухач "1" -> "*" Заявка : створювати
+Заявка "*" -down-> "1" Курс : на
+Курс "1" -> "1" Розклад : має
+term_report "*" -> "*" Курс : містити
+course_report "1" -right-> "1" Курс : за яким
+course_listener "*" -up-> "1" Слухач : чий
+course_listener "*" -down-> "1" Курс : за який
+Платіж "*" -> "1" course_listener : за що
+
+course_report -down-|> Звіт
+term_report -down-|> Звіт
+
+@enduml

@@ -1,0 +1,32 @@
+\documentclass[a4paper,14pt]{article}
+\nofiles
+%\usepackage{showframe}
+\usepackage{indentfirst}
+\usepackage{extsizes}
+\usepackage{fontspec}
+\usepackage[rm,center,uppercase,tiny]{titlesec}
+\usepackage{standalone}
+\usepackage{hyperref}
+\usepackage{supertabular}
+\usepackage[left=2cm, top=2cm, right=2cm, bottom=3cm, nohead, nofoot]{geometry}
+\titleformat{\section}{\centering}{}{0pt}{\thesection\ \uppercase}{}
+\titleformat{\subsection}{\centering}{}{0pt}{\thesubsection\ \uppercase}{}
+\usepackage{polyglossia}
+\setlength{\headsep}{1cm}
+\setlength{\parindent}{1cm}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\setdefaultlanguage{ukrainian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont[Mapping=tex-text]{Times New Roman}
+\newfontfamily\cyrillicfonttt{Anonymous Pro}
+\begin{document}
+\input{globals.tex}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\@oddhead}{\hfil\thepage}
+\makeatother
+\input{pp_pw3_inc.tex}
+
+Посилання на цей документ: \url{https://github.com/bodqhrohro/knp2014/raw/master/doc/pp_pw3.pdf}
+\end{document}
