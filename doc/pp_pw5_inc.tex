@@ -1,0 +1,149 @@
+\subsection{Модульне тестування}
+
+\tablabel{Тестові дані для таблиці courses}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Атрибут & \multicolumn{2}{|c|}{Значення} \\
+\hline
+idCourse & 1 & 2 \\
+Name & a & b \\
+Description & a & b \\
+isIndividual & 0 & 0 \\
+idTeacher & 1 & 1 \\
+idTeacher2 & 2 & 2 \\
+Price & 15 & 0 \\
+state & 0 & 0 \\
+affectedBy & user1 & user2 \\
+\hline
+\end{tabular}
+\end{center}
+
+\tablabel{Тестові дані для таблиці Course\_Listeners}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Атрибут & \multicolumn{4}{|c|}{Значення} \\
+\hline
+idCL & 1 & 2 & 3 & 4 \\
+idCourse & 1 & 1 & 1 & 2 \\
+idListener & 1 & 2 & 3 & 1 \\
+mark & 0 & 0 & 0 & 0 \\
+affectedBy & user1 & user1 & user1 & user1 \\
+\hline
+\end{tabular}
+\end{center}
+
+\tablabel{Тестові дані для таблиці teachers}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Атрибут & \multicolumn{2}{|c|}{Значення} \\
+\hline
+idTeacher & 1 & 2 \\
+Name & a & b \\
+Surname & a & b \\
+Patronymic & a & b \\
+Phone & 289 & 2893 \\
+Email & b@a.b & c@d.c \\
+degree & 1 & 2 \\
+affectedBy & user1 & user2 \\
+\hline
+\end{tabular}
+\end{center}
+
+\tablabel{Тестові дані для таблиці prices}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Атрибут & \multicolumn{3}{|c|}{Значення} \\
+\hline
+degree & 1 & 2 & 3 \\
+deglab & Б. с. & Доц. к. т. н. & Проф. \\
+salary & 15.62 & 23.24 & 35.38 \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\tablabel{Тестові дані для таблиці lessons}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Атрибут & \multicolumn{6}{|c|}{Значення} \\
+\hline
+idLesson & 1 & 2 & 3 & 4 & 5 & 6 \\
+idCourse & 1 & 1 & 1 & 2 & 2 & 2 \\
+date & 1.4.15 & 2.4.15 & 3.4.15 & 4.4.15 & 5.4.15 & 6.4.15 \\
+time & 13:00 & 13:00 & 13:00 & 13:00 & 13:00 & 13:00 \\
+type & 1 & 1 & 2 & 1 & 2 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+
+\tablabel{Тестові дані для таблиці users}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Атрибут & \multicolumn{3}{|c|}{Значення} \\
+\hline
+login & adm1 & user1 & user2 \\
+password & $hash('asdf')$ & $hash('qwer')$ & $hash('zxcv')$ \\
+salt & $<hash1>$ & $<hash2>$ & $<hash3>$ \\
+type & 0 & 1 & 2 \\
+sessionid & $<key1>$ & NULL & q \\
+\hline
+\end{tabular}
+\end{center}
+
+{\setlength{\tabcolsep}{0pt}
+\tablabel{Тестові дані для таблиці coefficients}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Атрибут & \multicolumn{3}{|c|}{Значення} \\
+\hline
+name & bonus & others & personal \\
+label & \parbox{4.5cm}{Нарахування на заробітну плату} & Інші послуги та утримки & Зарплата персоналу \\
+value & 1.12 & 1.23 & 1.05 \\
+\hline
+\end{tabular}
+\end{center}}
+
+Тестування алгоритму розрахунку вартості курсу проведено методом "білої скрині" (таблиця 0.7), алгоритму аутентифікації та авторизації --- методом "чорної скрині" (таблиця 0.8).
+\tablabel{Тестові випадки для алгоритму розрахунку вартості курсу}
+\newcounter{tcnt}\def\tcn{\addtocounter{tcnt}{1} \thetcnt}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{23mm}{\centering \textbf{Test Case №}} &
+\multicolumn{2}{|c|}{\textbf{Вхідні дані}} &
+\multirow{2}{27mm}{\centering \textbf{Очікуваний результат}} &
+\multirow{2}{77mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
+\cline{2-3}
+&id&full&&\tabularnewline
+\hline
+\tcn& 1	& true	& 60	&	\\
+\tcn& 2	& true	& 15	&	\\
+\tcn& 1	& false	& 20	&	\\
+\tcn& 2	& false	& 15	&	\\
+\hline
+\end{tabular}
+\setcounter{tcnt}{0}
+\tablabel{Тестові випадки для алгоритму аутентифікації та авторизації}\\
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{18mm}{\centering \textbf{Test Case №}} &
+\multicolumn{2}{|c|}{\textbf{Вхідні дані}} &
+\multirow{2}{27mm}{\centering \textbf{Очікуваний результат}} &
+\multirow{2}{75mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
+\cline{2-3}
+&login&pass&&\tabularnewline
+\hline
+\tcn& 'adm1'	& 'asdf'	& Вхід		&	\\
+\tcn& 'adm1'	& 'qwer'	& Відмова	&	\\
+\tcn& 'adm1'	& NULL		& Відмова	&	\\
+\tcn& 'user3'	& 'qwer'	& Відмова	&	\\
+\tcn& 'user3'	& 'sdfj'	& Відмова	&	\\
+\tcn& 'user2'	& 'zxcv'	& Відмова	&	\\
+\hline
+\end{tabular}
