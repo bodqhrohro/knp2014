@@ -9,7 +9,7 @@
 \newpage
 \subsection{База даних}
 \def\dbtable#1#2#3{
- \tablabel{Опис структури таблиці "#1" (#2)}
+ \tablabel{Опис структури таблиці "#1" (#2)}\\
  \begin{supertabular}{|p{1.2cm}|p{3.5cm}|p{3cm}|p{2.6cm}|p{1.2cm}|p{3.3cm}|}
  \hline
  Ключ & Назва & Ім'я поля & Тип & NULL & Дод.\\
@@ -39,16 +39,15 @@ PK & Ідентифікатор & idCourse & int(6) & Ні & A\_I\\
 FK & Викладач & idTeacher & int(6) & Так & \\
 FK & Другий викладач & idTeacher2 & int(6) & Так & \\
  & Ціна & Price & decimal(10,2) & Так & \\
- & Кількість годин & hours & smallint(3) & Ні & \\
  & Стан & state & tinyint(1) & Ні & 0..2 (Йде набір, набрано, завершений)\\
-FK & Ким змінено & affectedBy & int(6) & Ні & \\
+FK & Ким змінено & affectedBy & varchar(32) & Ні & \\
 }
 \dbtable{Слухачі курсу}{Course\_Listeners}{
 PK & Ідентифікатор & idCL & int(6) & Ні & A\_I\\
 FK & Курс & idCourse & int(6) & Ні & \\
 FK & Слухач & idListener & int(6) & Ні & \\
  & Оцінка & mark & tinyint(3) & Так & \\
-FK & Ким змінено & affectedBy & int(6) & Ні & \\
+FK & Ким змінено & affectedBy & varchar(32) & Ні & \\
 }
 \newpage
 \dbtable{Платежі}{payments}{
@@ -73,8 +72,8 @@ PK & Ідентифікатор & degree & tinyint(2) & Ні & A\_I\\
  & Зарплата & salary & decimal(10,2) & Ні & \\
 }
 \dbtable{Коефіціенти}{coefficients}{
-PK & Ідентифікатор & idCoefficient & tinyint(2) & Ні & A\_I\\
- & Мітка & name & varchar(128) & Так & \\
+PK & Назва & name & varchar(64) & Ні & \\
+ & Мітка & label & varchar(128) & Так & \\
  & Значення & value & float & Так & \\
 }
 \dbtable{Заняття}{lessons}{
@@ -89,7 +88,7 @@ FK & Курс & idCourse & int(11) & Ні & \\
 PK & Логін & login & varchar(32) & Ні & \\
  & Хеш паролю & password & text & Ні & \\
  & Сіль & salt & text & Ні & \\
- & Тип & isAdmin & tinyint(1) & Ні & 0..2 (Оператор, Адміністратор, Переглядач)\\
+ & Тип & type & tinyint(1) & Ні & 0..2 (Оператор, Адміністратор, Переглядач)\\
  & Ключ сесії & sessionid & text & Так & \\
 }
 
@@ -97,28 +96,23 @@ PK & Логін & login & varchar(32) & Ні & \\
 
 \input{gost_algo.tex}
 \begin{center}
-{ \fontsize{10pt}{12pt} \selectfont
+{ \fontsize{12pt}{14pt} \selectfont
 \begin{tikzpicture}[%
     start chain=going below,
     node distance=5mm and 60mm,
         ]
-        \node [cloud] (start) {getCoursePrice(id, full, verif)};
+        \node [cloud] (start) {getCoursePrice(id, full)};
 	\node [block, join] (global) {PRICE\_TRUNK := 10};
-	\node [decision, join] (argcond1) {verif = false};
-	\node [block] (setarg1) {verif := true};
-	\node [connector, join] (join1) {};
-	\node [block, join] (q1) {price := вартість з таблиці courses\\для курсу id,\\ hours := кількість годин з таблиці courses\\для курсу id};
+	\node [block, join] (q1) {price := вартість з таблиці courses\\для курсу id,};
 	\node [decision, join] (q1cond) {price = 0};
 	\node [block, join] (q2) {count := кількість слухачів\\з таблиці Course\_Listeners\\для курсу id};
 	\node [block, join] (q3) {salary := (зарплата з таблиці prices\\для вченого ступеню з таблиці teachers\\для викладача з таблиці courses) *\\(кількість занять з таблиці lessons\\з типом <<Лекція>>) + (зарплата з таблиці prices\\для вченого ступеню з таблиці teachers\\для другого викладача з таблиці courses) *\\(кількість занять з таблиці lessons\\з типом <<Практика>>)};
         \node [subroutine, join, subrtshape w = 3mm, fxd] (coefficients) {coef := getCoefficients()};
-	\node [block, join] (price) {price := $\left[ \frac{salary \cdot coef.personal \cdot coef.bonus \cdot coef.others \cdot hours}{count \cdot PRICE\_TRUNK}\right] \cdot PRICE\_TRUNK$};
+	\node [block, join] (price) {price := $\left[ \frac{salary \cdot coef.personal \cdot coef.bonus \cdot coef.others}{count \cdot PRICE\_TRUNK}\right] \cdot PRICE\_TRUNK$};
 	\node [decision, join] (fullcond) {full};
 	\node [block] (fullmul) {price := $price \cdot count$};
         \node [cloud, join] (finish) {Повернення price};
 
-        \path [line] (argcond1) to node [r] {Так} (setarg1);
-        \path [line] (argcond1) -- node [u,near start] {Ні} ++(5cm, 0cm) |- (join1);
         \path [line] (q1cond) to node [r] {Так} (q2);
         \path [line] (q1cond) -- node [u,near start] {Ні} ++(7cm, 0cm) |- (finish);
         \path [line] (fullcond) to node [r] {Так} (fullmul);
@@ -129,7 +123,7 @@ PK & Логін & login & varchar(32) & Ні & \\
 \imglabel{Алгоритм розрахунку вартості курсу}
 
 \begin{center}
-{ \fontsize{10pt}{12pt} \selectfont
+{ \fontsize{12pt}{14pt} \selectfont
 \begin{tikzpicture}[%
     start chain=going below,
     node distance=5mm and 60mm,
@@ -147,7 +141,7 @@ PK & Логін & login & varchar(32) & Ні & \\
 	\node [block, join] (gotomain) {Перейти на головну сторінку};
         \node [cloud, join] (finish) {Вихід};
 
-	\node [block, right of = q1cond, node distance = 8cm, yshift = -5mm] (err5) {Помилка 400:\\користувача не знайдено};
+	\node [block, right of = q1cond, node distance = 8.5cm, yshift = -5mm] (err5) {Помилка 400:\\користувача не знайдено};
 	\node [block, right of = confcond, node distance = 6.2cm, yshift = -5mm] (err10) {Помилка 403:\\обліковий запис\\ще не підтверджено};
 	\node [block, right of = passcond, node distance = 4.5cm, yshift = -5mm] (err6) {Помилка 403:\\пароль невірний};
 

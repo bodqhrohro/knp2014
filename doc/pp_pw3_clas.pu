@@ -14,7 +14,6 @@ class Course {
 	+idTeacher : int
 	+idTeacher2 : int
 	-price : float
-	+hours : int
 	+state : Enum
 	+getPrice() : float
 	{static} filterOutListener(Listener) : Course[0..*]
