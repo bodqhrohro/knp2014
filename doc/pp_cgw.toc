@@ -1,0 +1,30 @@
+\select@language {ukrainian}
+\contentsline {section}{\numberline {1}Визначення бізнес-вимог}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Визначення бізнес-вимог}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Опис предметної області}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Назва продукту}{4}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Проблеми}{4}{subsubsection.1.1.3}
+\contentsline {subsubsection}{\numberline {1.1.4}Аналогічні системи}{5}{subsubsection.1.1.4}
+\contentsline {subsubsection}{\numberline {1.1.5}Цілі}{6}{subsubsection.1.1.5}
+\contentsline {subsection}{\numberline {1.2}Визначення власних вимог}{7}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Діаграма варіантів використання}{7}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Опис варіантів використання}{8}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Функціональні вимоги}{20}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Нефункціональні вимоги}{22}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Планування розробки}{22}{subsection.1.5}
+\contentsline {section}{\numberline {2}Проектування програмного продукту}{26}{section.2}
+\contentsline {subsection}{\numberline {2.1}Концептуальне проектування}{26}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Логічне проектування}{27}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}База даних}{28}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Оцінка алгоритмічної складності}{31}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Опис зовнішних інтерфейсів}{34}{subsection.2.5}
+\contentsline {section}{\numberline {3}Конструювання програмного продукту}{35}{section.3}
+\contentsline {subsection}{\numberline {3.1}Опис програмних технологій}{35}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Опис програмних бібліотек}{35}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Особливості створення програмних модулів з урахуванням мови програмування}{36}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Особливості створення структур даних}{37}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Модульне тестування}{37}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Функціональне тестування}{39}{subsection.3.6}
+\contentsline {section}{\numberline {4}Розгортання програмного продукту}{44}{section.4}
+\contentsline {subsection}{\numberline {4.1}Інструкція з встановлення}{44}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Інструкція з використання}{45}{subsection.4.2}

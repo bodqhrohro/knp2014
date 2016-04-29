@@ -21,6 +21,7 @@
 \newcommand{\tabheader}[2]{
  #1 \emph{(#2)}
 }
+\setlength{\tabcolsep}{3pt}
 \dbtable{Слухачі}{listeners}{
 PK & Ідентифікатор & idListener & int(6) & Ні & A\_I\\
  & Ім'я & Name & varchar(30) & Так & \\
@@ -159,7 +160,7 @@ PK & Логін & login & varchar(32) & Ні & \\
 \end{center}
 \imglabel{Алгоритм аутентифікації та авторизації}
 
-На рис. 3 зазначено складну операцію розрахунку вартості за даними з БД. Вона реалізується наступним SQL-запитом:
+На рис. 8 зазначено складну операцію розрахунку вартості за даними з БД. Вона реалізується наступним SQL-запитом:
 { \fontsize{10pt}{12pt} \selectfont
 \begin{verbatim}
 SELECT ifnull(s1,0)*ifnull(c1,0)+ifnull(s2,0)*ifnull(c2,0) FROM ((
@@ -217,7 +218,7 @@ SELECT ifnull(s1,0)*ifnull(c1,0)+ifnull(s2,0)*ifnull(c2,0) FROM ((
 CREATE INDEX course_of_lesson ON lessons (idCourse);
 \end{verbatim}
 
-Циклів в алгоритмах на рис. 3 та 4 немає, тож їх складність --- O(N).
+Циклів в алгоритмах на рис. 8 та 9 немає, тож їх складність --- O(N).
 
 \subsection{Опис зовнішних інтерфейсів}
 

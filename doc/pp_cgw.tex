@@ -1,0 +1,82 @@
+\documentclass[a4paper,14pt]{article}
+%\usepackage{showframe}
+\usepackage{indentfirst}
+\usepackage{extsizes}
+\usepackage{fontspec}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage[rm,center,uppercase,tiny]{titlesec}
+\usepackage{standalone}
+\usepackage{hyperref}
+\usepackage{supertabular}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\usepackage[below]{placeins}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{diagbox}
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usetikzlibrary{shapes, arrows, chains}
+\usepackage[left=2cm, top=2cm, right=2cm, bottom=4cm, nohead]{geometry}
+\titleformat{\section}{\centering}{}{0pt}{\setcounter{tabcount}{0}\thesection\ \uppercase}{}
+\titleformat{\subsection}{\centering}{}{0pt}{\thesubsection\ \uppercase}{}
+\usepackage{polyglossia}
+\setlength{\headsep}{1cm}
+\setlength{\parindent}{1cm}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\setdefaultlanguage{ukrainian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont[Mapping=tex-text]{Times New Roman}
+\newfontfamily\cyrillicfonttt{Anonymous Pro}
+\begin{document}
+\input{globals.tex}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\@oddfoot}{\raisebox{-1cm}{\parbox[b]{\textwidth}{
+\fontsize{10pt}{12pt} \selectfont
+Посилання на цей документ: \url{https://github.com/bodqhrohro/knp2014/raw/master/doc/pp_cgw.pdf}
+}}}
+\makeatother
+
+\begin{center}
+Одеський національний політехнічний університет
+
+Інститут комп'ютерних систем
+
+Кафедра системного програмного забезпечення
+\vspace{55mm}
+
+Пояснювальна записка
+
+до Розрахунково-графічної роботи
+
+з дисципліни <<Проектний практикум>>
+
+на тему <<Система обліку платних курсів. Модуль обліку платних курсів>>
+\end{center}
+\vspace{5cm}
+\begin{flushright}
+Виконав: ст. гр. АС-122 Горбешко Б. М.
+
+Перевірив: Блажко О. А.
+\end{flushright}
+\vspace{55mm}
+\begin{center}Одеса --- 2016 року\end{center}
+\newpage
+\makeatletter\renewcommand{\@oddhead}{\hfil\thepage}\makeatother
+
+\def\contentsname{ЗМІСТ}
+\tableofcontents
+\newpage
+
+\section{Визначення бізнес-вимог}
+\input{pp_pw1_inc.tex}
+\input{pp_pw2_inc.tex}
+\input{pp_pw3_inc.tex}
+\section{Конструювання програмного продукту}
+\input{pp_pw4_inc.tex}
+\input{pp_pw5_inc.tex}
+\input{pp_pw6_inc.tex}
+\input{pp_pw7_inc.tex}
+\end{document}
