@@ -10,10 +10,7 @@ $check=mysql_query(sql([
   'Name' => $_POST['Name'],
   'Description' => $_POST['Description'],
   'idTeacher' => $_POST['idTeacher'],
-  'DateBegin' => $_POST['DateEnd'],
-  'DateEnd' => $_POST['DateEnd'],
   'price' => $_POST['price']==getCoursePrice($_POST['idCourse'],false)?NULL:$_POST['price'],
-  'hours' => $_POST['hours'],
   'state' => $_POST['state'],
   'spec' => $_POST['spec'],
   'affectedBy' => my_userid()
@@ -24,8 +21,6 @@ if (!$check) {
  http_response_code(400);
 } else {
  $_POST['TSNP']=getTeacherSNP($_POST['idTeacher']);
- $_POST['DateBegin']=date_from_kendo($_POST['DateBegin']);
- $_POST['DateEnd']=date_from_kendo($_POST['DateEnd']);
  echo json_encode([$_POST],JSON_UNESCAPED_UNICODE);
 }
 ?>

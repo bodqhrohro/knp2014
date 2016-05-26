@@ -40,7 +40,7 @@
 
 			$alienlgn = $i===2 ? $logins[1] : $logins[2];
 			$alienpw = $i===2 ? $passwords[1] : $passwords[2];
-	
+
 			$listener1 = array(
 				'Name' => 'test123',
 				'Surname' => 'test123',
@@ -49,20 +49,20 @@
 				'Phone' => '+8378123',
 				'Email' => 'test@test.ua'
 			);
-	
+
 			$dogpatch
 			->post($HOST.'entities/listener/create.php', $listener1)
 			->assertStatusCode($i<2?200:403);
 			printOK("Created test listener");
-	
+
 			$dogpatch
 			->get($HOST.'entities/listener/read.php')
 			->assertStatusCode($i<3?200:403)
 			->assertBodyContains($listener1, 'idListener', true, ($i>=2));
 			printOK("Read listeners");
-	
+
 			$idListener = $dogpatch->getId();
-			
+
 			$listener2 = array(
 				'idListener' => $idListener,
 				'Name' => 'test321',
@@ -120,73 +120,121 @@
 			->post($HOST.'entities/teacher/update.php', $teacher2)
 			->assertStatusCode($i<2?200:403);
 			printOK("Updated test teacher");
-	
+
 			$dogpatch
 			->get($HOST.'entities/teacher/read.php')
 			->assertStatusCode($i<3?200:403)
 			->assertBodyContains($teacher2, 'idTeacher', true, ($i>=2));
 			printOK("Read teachers");
-	
+
 			$course1 = array(
 				'Name' => 'test123',
 				'Description' => 'test123',
 				'idTeacher' => $idTeacher,
-				'DateBegin' => 'test '.date('M d Y').' GMT',
-				'DateEnd' => 'test '.date('M d Y').' GMT',
 				'price' => 200,
-				'hours' => 10,
 				'state' => 0,
 				'spec' => 0
 			);
-	
+
 			$dogpatch
 			->post($HOST.'entities/course/create.php', $course1)
 			->assertStatusCode($i<2?200:403);
 			printOK("Created test course");
-	
-			$course1['DateBegin'] = date('Y-m-d');
-			$course1['DateEnd'] = date('Y-m-d');
-	
+
 			$dogpatch
 			->get($HOST.'entities/course/read.php')
 			->assertStatusCode($i<3?200:403)
 			->assertBodyContains($course1, 'idCourse', true, ($i>=2));
 			printOK("Read courses");
-	
+
 			$idCourse = $dogpatch->getId();
-	
+
+			$lesson1 = array(
+				'date' => '2023-03-21',
+				'type' => 0,
+				'idCourse' => $idCourse
+			);
+			$lesson2 = array(
+				'date' => '2023-03-23',
+				'type' => 1,
+				'idCourse' => $idCourse
+			);
+
+			$dogpatch
+			->post($HOST.'entities/lesson/create.php', $lesson1)
+			->assertStatusCode($i<2?200:403)
+			->post($HOST.'entities/lesson/create.php', $lesson2)
+			->assertStatusCode($i<2?200:403);
+			printOK("Created test lessons");
+
+			$idLesson1 = $dogpatch
+			->get($HOST.'entities/lesson/read.php?idCourse='.$idCourse)
+			->assertStatusCode($i<3?200:403)
+			->assertBodyContains($lesson1, 'idLesson', true, ($i>=2))
+			->getId();
+			$idLesson2 = $dogpatch
+			->assertBodyContains($lesson2, 'idLesson', true, ($i>=2))
+			->getId();
+			printOK("Read lessons");
+
+			$course1['DateBegin'] = $lesson1['date'];
+			$course1['DateEnd'] = $lesson2['date'];
+			$course1['hours'] = 2;
+
+			$dogpatch
+			->get($HOST.'entities/course/read.php')
+			->assertStatusCode($i<3?200:403)
+			->assertBodyContains($course1, 'idCourse', true, ($i>=2));
+			printOK("Read courses");
+
 			$course2 = array(
 				'idCourse' => $idCourse,
 				'Name' => 'test321',
 				'Description' => 'test321',
 				'idTeacher' => $idTeacher,
-				'DateBegin' => 'test '.date('M d Y').' GMT',
-				'DateEnd' => 'test '.date('M d Y').' GMT',
 				'price' => 300,
-				'hours' => 20,
 				'state' => 1,
 				'spec' => 1
 			);
-	
+
 			$dogpatch
 			->post($HOST.'entities/course/update.php', $course2)
 			->assertStatusCode($i<2?200:403);
 			printOK("Updated test course");
-	
-			$course2['DateBegin'] = date('Y-m-d');
-			$course2['DateEnd'] = date('Y-m-d');
-	
+
+			$course2['DateBegin'] = $course1['DateBegin'];
+			$course2['DateEnd'] = $course1['DateEnd'];
+			$course2['hours'] = $course1['hours'];
+
 			$dogpatch
 			->get($HOST.'entities/course/read.php')
 			->assertStatusCode($i<3?200:403)
 			->assertBodyContains($course2, 'idCourse', true, ($i>=2));
 			printOK("Read courses");
-	
+
+			$lesson2 = array(
+				'idLesson' => $idLesson2,
+				'date' => '2023-03-22',
+				'time' => '12:00:00',
+				'type' => 0
+			);
+
+			$dogpatch
+			->post($HOST.'entities/lesson/update.php', $lesson2)
+			->assertStatusCode($i<2?200:403);
+			printOK("Updated test lesson");
+
+			$dogpatch
+			->get($HOST.'entities/lesson/read.php?idCourse='.$idCourse)
+			->assertStatusCode($i<3?200:403)
+			->assertBodyContains($lesson2, 'idLesson', true, ($i>=2));
+			printOK("Read lessons");
+
 			$dogpatch
 			->post($HOST.'entities/courses_of_listener/create.php', array('id' => $idListener, 'ids' => $idCourse))
 			->assertStatusCode($i<2?200:403);
 			printOK("Created payment");
-	
+
 			$dogpatch
 			->get($HOST.'entities/courses_of_listener/read.php?id='.$idListener)
 			->assertStatusCode($i<3?200:403)
@@ -338,6 +386,14 @@
 			->assertStatusCode(200);
 			printOK("Logged in");
 		
+			$dogpatch
+			->post($HOST.'entities/lesson/destroy.php', array('idLesson' => $idLesson1))
+			->assertStatusCode(200);
+			$dogpatch
+			->post($HOST.'entities/lesson/destroy.php', array('idLesson' => $idLesson2))
+			->assertStatusCode(200);
+			printOK("Deleted test lessons");
+
 			$dogpatch
 			->post($HOST.'entities/course/destroy.php', array('idCourse' => $idCourse))
 			->assertStatusCode(200);

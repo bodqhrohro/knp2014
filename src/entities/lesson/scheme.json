@@ -1,0 +1,14 @@
+{
+ "toolbar": [
+  {"name":"create","text":"Добавить занятие"},
+  {"name":"save","text":"Сохранить изменения"},
+  {"name":"cancel","text":"Отменить изменения"}
+ ],
+ "columns": [
+  { "field": "date", "title": "Дата", "format": "{0:yyyy-MM-dd}" },
+  { "field": "time", "title": "Время" },
+  { "field": "type", "title": "Тип", "template": "#= e(courses2014.lesson_types[data.type]) #", "width": "130px" },
+  { "field": "affectedBy", "title": "Изменено" },
+  { "command": [{"name": "destroy", "text": "Удалить"}] }
+ ]
+}

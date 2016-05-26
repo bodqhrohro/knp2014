@@ -66,9 +66,9 @@ function sql($param){
 	break;
 	case 'NULL':
 	 if ($key==='set'){
-	  $request.=$key2.'=NULL, ';
+	  $request.=$key2.'=DEFAULT, ';
 	 } else {
-	  $request.='NULL, ';
+	  $request.='DEFAULT, ';
 	 }
 	break;
 	case 'boolean':
@@ -145,8 +145,8 @@ function getCoursePrice($courseid,$full,$verif=true){
   ]));
   $q3=mysql_fetch_array($q3,MYSQL_ASSOC);
   $q4=mysql_query(sql([
-   'select' => ['hours'],
-   'from' => ['courses'],
+   'select' => ['count(*) hours'],
+   'from' => ['lessons'],
    'where' => 'idCourse='.$courseid
   ]));
   $q4=mysql_fetch_array($q4,MYSQL_ASSOC);

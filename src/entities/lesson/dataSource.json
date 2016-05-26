@@ -1,0 +1,23 @@
+{
+ "schema": {
+  "model": {
+   "id": "idLesson",
+   "fields": {
+    "idCourse": {
+    },
+    "date": {
+     "type": "date",
+     "format": "{0:yyyy-MM-dd}"
+    },
+    "time": {
+     "defaultValue": "13:00:00"
+    },
+    "type": {
+     "defaultValue": 0
+    },
+    "affectedBy": {
+    }
+   }
+  }
+ }
+}

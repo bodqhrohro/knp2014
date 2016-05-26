@@ -9,18 +9,7 @@
     },
     "idTeacher": {
     },
-    "DateBegin": {
-     "type": "date",
-     "format": "{0:yyyy-MM-dd}"
-    },
-    "DateEnd": {
-     "type": "date",
-     "format": "{0:yyyy-MM-dd}"
-    },
     "price": {
-     "type": "number"
-    },
-    "hours": {
      "type": "number"
     },
     "state": {

@@ -17,6 +17,9 @@
      "type": "date",
      "format": "{0:yyyy-MM-dd}"
     },
+    "lessons": {
+     "editable": false
+    },
     "price": {
      "type": "number"
     },

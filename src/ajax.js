@@ -9,6 +9,10 @@ courses2014.course_states=[
  'Набор окончен',
  'Курс завершён'
 ];
+courses2014.lesson_types=[
+ 'Лекция',
+ 'Практика'
+];
 var dsMapper = function(v,i) {
  return {i: i, v: v};
 };
@@ -140,33 +144,14 @@ function openTable(entity){
    case 'course':
     //teachers dropdown
     response['columns'][2]['editor']=getTeachersList;
-    response['columns'][7]['editor']=getStateList;
-    /*response['columns'][2]['dataSource']={
-     transport: {
-      read: function (opt) {
-       $.ajax({
-        url: "ajax/returnTeachers.php",
-	method: "GET",
-	params: {
-	 id: "17"
-	},
-	success: function(r){
-	 opt.success(r);
-	},
-	error: function(r){
-	 opt.error(r);
-	}
-       });
-      }
-     }
-    };*/
+    response['columns'][5]['editor']=getStateList;
     //listeners rollover
     response['detailInit']=getListenersByCourse;
    break;
    case 'ind_course':
     response['columns'][2]['editor']=getTeachersList;
-    response['columns'][7]['editor']=getStateList;
-    response['columns'][9]['editor']=listenerPicker;
+    response['columns'][5]['editor']=getStateList;
+    response['columns'][7]['editor']=listenerPicker;
    break;
    case 'listener':
     //courses rollover
@@ -283,6 +268,18 @@ function getStateList(cont,opt){
     dataValueField: 'i'
    });
 }
+function getLessonTypeList(cont, opt) {
+ $('<input name="state" data-bind="value:' + opt.field + '"/>')
+  .appendTo(cont)
+  .kendoDropDownList({
+    autoBind: false,
+    dataSource: {
+     data: courses2014.lesson_types.map(dsMapper)
+    },
+    dataTextField: 'v',
+    dataValueField: 'i'
+   });
+}
 function listenerPicker(cont,opt){
  var $container=$('<div/>').css('z-index',100000).attr('id','listenerPicker').kendoPopup({
   draggable: false,
@@ -324,6 +321,44 @@ function listenerPicker(cont,opt){
   .appendTo(cont);
  $container.appendTo(cont).show();
 }
+function lessonsEditor(idCourse, name){
+ var entity='lesson';
+ var $container=$('<div/>')
+  .css({'z-index':100001, 'max-width': '600px'})
+  .attr('id','lessonsEditor')
+  .appendTo('body')
+  .kendoWindow({
+   modal: true,
+   title: 'Расписание курса «' + name + '»'
+  });
+ var response1;
+ var showResult1=function(response){
+  response['columns'][2]['editor']=getLessonTypeList;
+  response1=response;
+  $.ajax({
+   url: 'entities/'+entity+'/dataSource.json',
+   dataType: 'json',
+   success: showResult2
+  });
+ };
+ var showResult2=function(response){
+  var response2=response;
+  response1=commonSchemeDef(response1,entity);
+  response2=commonDataSourceDef(response2,entity,idCourse);
+  response2.schema.model.fields.idCourse.defaultValue=idCourse;
+  response1['dataSource']=new kendo.data.DataSource(response2);
+  $('<div/>').appendTo($container).css({
+   width:'auto',
+   float:'left'
+  }).kendoGrid(response1);
+  $container.data('kendoWindow').center();
+ };
+ $.ajax({
+  url: 'entities/'+entity+'/scheme.json',
+  dataType: 'json',
+  success: showResult1
+ });
+}
 function getCoursesByListener(e){
  var entity='courses_of_listener';
  var response1;
@@ -333,7 +368,7 @@ function getCoursesByListener(e){
  var showResult2=function(response){
   var response2=response;
   response1=commonSchemeDef(response1,entity);
-  response2=commonDataSourceDef(response2,entity,e);
+  response2=commonDataSourceDef(response2,entity,e.data);
   response1['toolbar'][0]['template']='<a class=\'k-button k-button-icontext\' onclick=\'selectCoursesExListeners('+e.data.id+',this)\' href=\'javascript:void(0)\'>Записать на курс</a>';
   response1['columns'][5]['command'][0]['click']=setFullPaid;
   response1['dataSource']=new kendo.data.DataSource(response2);
@@ -379,7 +414,7 @@ function getListenersByCourse(e){
  var showResult2=function(response){
   var response2=response;
   response1=commonSchemeDef(response1,2);
-  response2=commonDataSourceDef(response2,entity,e);
+  response2=commonDataSourceDef(response2,entity,e.data);
   response1['toolbar'][0]['template']='<a class=\'k-button k-button-icontext\' onclick=\'selectListenersExCourses('+e.data.id+',this)\' href=\'javascript:void(0)\'>Записать слушателя</a>';
   response1['columns'][5]['command'][0]['click']=setFullPaid;
   response1['dataSource']=new kendo.data.DataSource(response2);
@@ -565,7 +600,7 @@ function commonSchemeDef(response,type){
  //response['toolbar'].push({template: '<a class=\'k-button k-button-icontext\' href=\'\\#\' onclick=\'refreshGrid(this);\'><span class=\'k-icon k-i-refresh\'></span>Обновить</a>'});
  return response;
 }
-function commonDataSourceDef(response,entity,e){
+function commonDataSourceDef(response,entity,data){
  if (response['schema']['model']['fields']['affectedBy'])
   response['schema']['model']['fields']['affectedBy']['editable']=false;
  response['transport']={};
@@ -581,12 +616,15 @@ function commonDataSourceDef(response,entity,e){
    response['transport']['destroy']={url:'entities/'+entity+'/destroy.php',dataType:'json',type:'POST'};
  }
  if (entity=='courses_of_listener'||entity=='listeners_of_course') {
-  response['transport']['read']['url']+='?id='+e.data.id;
+  response['transport']['read']['url']+='?id='+data.id;
   if (!window.courses2014_editlock) {
-   response['transport']['create']['url']+='?id='+e.data.id;
-   response['transport']['update']['url']+='?id='+e.data.id;
-   response['transport']['destroy']['url']+='?id='+e.data.idCL;
+   response['transport']['create']['url']+='?id='+data.id;
+   response['transport']['update']['url']+='?id='+data.id;
+   response['transport']['destroy']['url']+='?id='+data.idCL;
   }
+ }
+ if (entity=='lesson') {
+  response['transport']['read']['url']+='?idCourse='+data;
  }
  return response;
 }
@@ -688,7 +726,7 @@ function reportDialog(reportType){
   modal: true,
   close: closeHandler
  };
- $dialog=$stub.appendTo('body').kendoWindow(winparams);
+ $dialog=$stub.appendTo('body').kendoWindow(winparams).center();
  ($stub.data('kendoWindow')).center();
  //CALLBACK
  var initForm=function(response){

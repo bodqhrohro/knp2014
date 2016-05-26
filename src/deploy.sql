@@ -15,11 +15,8 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `Description` varchar(400) DEFAULT NULL,
   `isIndividual` bit(1) NOT NULL,
   `idTeacher` int(11) DEFAULT NULL,
-  `DateBegin` date DEFAULT NULL,
-  `DateEnd` date DEFAULT NULL,
   `isCompleted` bit(1) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `hours` smallint(3) NOT NULL,
   `state` tinyint(1) NOT NULL,
   `affectedBy` varchar(32) NOT NULL,
   `spec` tinyint(1) NOT NULL,
@@ -36,6 +33,16 @@ CREATE TABLE IF NOT EXISTS `Course_Listeners` (
   `mark` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`idCL`)
 ) ENGINE=MyISAM AUTO_INCREMENT=408 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `lessons` (
+ `idLesson` int(11) NOT NULL AUTO_INCREMENT,
+ `idCourse` int(11) NOT NULL,
+ `date` date NULL,
+ `time` time NOT NULL DEFAULT '13:00',
+ `type` tinyint(1) NOT NULL,
+ `affectedBy` varchar(32) NOT NULL,
+ PRIMARY KEY (`idLesson`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `listeners` (
   `idListener` int(6) NOT NULL AUTO_INCREMENT,

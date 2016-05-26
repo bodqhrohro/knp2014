@@ -14,6 +14,12 @@ $check=$check &&
   'from' => 'Course_Listeners',
   'where' => 'idCourse='.$_POST['idCourse']
  ]),$db);
+$check=$check &&
+ mysql_query(sql([
+  'delete' => [],
+  'from' => 'lessons',
+  'where' => 'idCourse='.$_POST['idCourse']
+ ]),$db);
 if (!$check) {
  http_response_code(400);
 } else {
