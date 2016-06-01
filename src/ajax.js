@@ -726,7 +726,7 @@ function reportDialog(reportType){
   modal: true,
   close: closeHandler
  };
- $dialog=$stub.appendTo('body').kendoWindow(winparams).center();
+ $dialog=$stub.appendTo('body').kendoWindow(winparams);
  ($stub.data('kendoWindow')).center();
  //CALLBACK
  var initForm=function(response){

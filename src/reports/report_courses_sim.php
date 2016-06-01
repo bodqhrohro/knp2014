@@ -10,39 +10,28 @@ $mpdf->WriteHTML("<table><tr><th>№ п/п</th><th>Информация о ку�
 $db=connectDB();
 $courses=mysql_query(sql([
  'select' => [
-  'idCourse',
-  'Name',
-  'idTeacher'
+  'courses.Name',
+  'Surname',
+  'teachers.Name TName',
+  'Patronymic',
+  'sum(havePaid) havePaid'
  ],
- 'from' => 'courses',
- 'where' => 'isIndividual=0 AND (DateBegin BETWEEN TIMESTAMP(\''.$_GET['dateBegin'].'\') AND TIMESTAMP(\''.$_GET['dateEnd'].'\'))',
+ 'from' => 'courses left join teachers on courses.idTeacher=teachers.idTeacher left join Course_Listeners on courses.idCourse = Course_Listeners.idCourse',
+ 'where' => 'isIndividual=0 AND courses.idCourse in ('.sql([
+  'select distinct' => 'idCourse',
+  'from' => 'lessons',
+  'where' => '(date BETWEEN TIMESTAMP(\''.$_GET['dateBegin'].'\') AND TIMESTAMP(\''.$_GET['dateEnd'].'\'))'
+ ]).')',
+ 'group by' => 'courses.idCourse',
  'order by' => 'Name'
 ]),$db);
 for ($i=1;$tmp1=mysql_fetch_array($courses);$i++){
- $tmp2=mysql_query(sql([
-  'select' => [
-   'sum(havePaid)'
-  ],
-  'from' => 'Course_Listeners',
-  'where' => 'idCourse='.$tmp1['idCourse']
- ]),$db);
- $tmp2=mysql_fetch_row($tmp2);
- $paidsum+=$tmp2[0];
- $tmp4=mysql_query(sql([
-  'select' => [
-   'Surname',
-   'Name',
-   'Patronymic'
-  ],
-  'from' => 'teachers',
-  'where' => 'idTeacher='.$tmp1['idTeacher']
- ]),$db);
- $tmp4=mysql_fetch_array($tmp4);
+ $paidsum+=$tmp1['havePaid'];
  $mpdf->WriteHTML("<tr>",2);
  $mpdf->WriteHTML("<td class='cell1'>".$i."</td>",2);
  $mpdf->WriteHTML("<td>".$tmp1['Name']."</td>",2);
- $mpdf->WriteHTML("<td class='cell1'>".shortName($tmp4['Surname'],$tmp4['Name'],$tmp4['Patronymic'])."</td>",2);
- $mpdf->WriteHTML("<td class='cell1'>".$tmp2[0]."</td>",2);
+ $mpdf->WriteHTML("<td class='cell1'>".shortName($tmp1['Surname'],$tmp1['TName'],$tmp1['Patronymic'])."</td>",2);
+ $mpdf->WriteHTML("<td class='cell1'>".$tmp1['havePaid']."</td>",2);
  $mpdf->WriteHTML("</tr>",2);
 }
 $mpdf->WriteHTML("<tr>",2);

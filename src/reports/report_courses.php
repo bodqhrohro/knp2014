@@ -10,15 +10,16 @@ $mpdf->WriteHTML("<table><tr><th>№ п/п</th><th>Информация о ку�
 $db=connectDB();
 $courses=mysql_query(sql([
  'select' => [
-  'idCourse',
+  'courses.idCourse',
   'Name',
-  'DateBegin',
-  'DateEnd',
+  'min(date) DateBegin',
+  'max(date) DateEnd',
   'idTeacher',
-  'hours'
+  'count(date) hours'
  ],
- 'from' => 'courses',
- 'where' => 'isIndividual=0 AND (DateBegin BETWEEN TIMESTAMP(\''.$_GET['dateBegin'].'\') AND TIMESTAMP(\''.$_GET['dateEnd'].'\'))',
+ 'from' => 'courses left join lessons on courses.idCourse = lessons.idCourse',
+ 'where' => 'isIndividual=0 AND (date BETWEEN TIMESTAMP(\''.$_GET['dateBegin'].'\') AND TIMESTAMP(\''.$_GET['dateEnd'].'\'))',
+ 'group by' => 'courses.idCourse',
  'order by' => 'Name'
 ]),$db);
 for ($i=1;$tmp1=mysql_fetch_array($courses);$i++){
