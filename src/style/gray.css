@@ -84,3 +84,8 @@ img.imglink {
 #itemList {
  text-align: left !important;
 }
+#mergeDialog tbody .k-button {
+ min-width: 30px;
+ padding-right: 2px;
+ text-align: right;
+}

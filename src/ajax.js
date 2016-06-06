@@ -671,7 +671,9 @@ function getNotifications(){
    $container.append($('<li class=\'notification\'/>').html(
     verbose_notifications?
     response[key]['string']+
+    (response[key]['warning'] ? '<br><small>'+response[key]['warning']+'</small>' : '')+
     buttonWrapper1(response[key]['type'],response[key]['params'],1,'Принять')+
+    (response[key]['params'] && response[key]['params']['lid_old'] ? buttonWrapper1(response[key]['type'],response[key]['params'],2,'Слить') : '')+
     buttonWrapper1(response[key]['type'],response[key]['params'],0,'Отклонить')
     :response[key])
    );
@@ -688,7 +690,66 @@ function getNotifications(){
  };
  $.ajax(request);
 }
-function callConfirm(type,params,confirm,elem){
+function transferHandler(e) {
+ var data = this.dataItem($(e.target).closest("tr"));
+ data.set('old', data.new);
+}
+function callConfirm(type,params,confirm,elem,postData){
+ if (confirm == 2) {
+  var $container=$('<div/>')
+   .css({'z-index':100001, 'max-width': '600px'})
+   .attr('id','mergeDialog')
+   .appendTo('body')
+   .kendoWindow({
+    modal: true,
+    title: 'Слияние слушателей'
+   });
+  $.when(
+   $.getJSON('entities/listener/read.php?id='+params['lid_old']),
+   $.getJSON('entities/listener/read.php?id='+params['lid'])
+  ).then(function(old, app) {
+   var grid = $('<div/>').appendTo($container).css({
+    width:'auto',
+    float:'left'
+   }).kendoGrid({
+    editable: true,
+    toolbar: [ {name: 'save', 'text': 'Сохранить и удалить заявку'} ],
+    saveChanges: function(e) {
+     callConfirm(type, params, 1, elem, e.sender._data.reduce(function(prev, cur) {
+      prev[cur.title] = cur.old;
+      return prev;
+     }, {}));
+    },
+    dataBound: function() {
+     this.dataSource.view().forEach(function(entry) {
+      if (entry.title == 'idListener' || entry.title == 'affectedBy') {
+       this.tbody.find('tr[data-uid="'+entry.uid+'"]').hide();
+      }
+     }.bind(this));
+    },
+    columns: [
+     { title: 'Поле', field: 'title', editable: false },
+     { title: 'Заявка', field: 'new', editable: false },
+     { command: [
+	{ name: 'right', text: '', imageClass : 'k-icon no-text k-i-arrow-e', click: transferHandler }
+       ],
+       width: '56px'
+     },
+     { title: 'Слушатель', field: 'old' }
+    ],
+    dataSource: Object.keys(old[0]).map(function(key) {
+     return {
+      'title': key,
+      'old': old[0][key],
+      'new': app[0][key]
+     };
+    })
+   });
+   $container.data('kendoWindow').center();
+   $('.no-text', $container).parent().css('min-width', 0);
+  });
+  return;
+ }
  var data={
   type: type,
   confirm: confirm
@@ -696,15 +757,16 @@ function callConfirm(type,params,confirm,elem){
  for (key in params)
   data[key]=params[key];
  var removeNotification=function(){
-  ($(elem).parent()).slideUp();
+  $('#mergeDialog').data('kendoWindow').close();
+  $(elem).parent().slideUp();
  };
  var request={
-  url: 'ajax/confirm.php',
-  data: data,
-  type: 'GET',
+  url: 'ajax/confirm.php?'+Object.keys(data).map(function(key) { return key+'='+data[key]; }).join('&'),
+  type: postData?'POST':'GET',
   success: removeNotification,
   error: function(){errorBox(1);}
  };
+ postData && (request.data = postData);
  $.ajax(request); 
 }
 function reportDialog(reportType){

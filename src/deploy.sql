@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `Course_Listeners` (
   `confirmed` bit(1) NOT NULL DEFAULT b'1',
   `affectedBy` varchar(32) NOT NULL,
   `mark` tinyint(3) DEFAULT NULL,
+  `callback` varchar(255) NULL,
   PRIMARY KEY (`idCL`)
 ) ENGINE=MyISAM AUTO_INCREMENT=408 DEFAULT CHARSET=utf8;
 
