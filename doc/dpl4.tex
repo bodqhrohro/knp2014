@@ -1,0 +1,97 @@
+\documentclass[a4paper,14pt]{article}
+\usepackage{showframe}
+\usepackage{indentfirst}
+\usepackage{extsizes}
+\usepackage{fontspec}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{hyphenat}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\usepackage[rm,center,uppercase,tiny]{titlesec}
+\usepackage{standalone}
+\usepackage{hyperref}
+\usepackage{supertabular}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\usepackage[below]{placeins}
+\usepackage{diagbox}
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usetikzlibrary{shapes, arrows, chains}
+\usepackage[left=25mm, top=1cm, right=1cm, bottom=3cm, nohead]{geometry}
+\usepackage{polyglossia}
+\setlength{\headsep}{1cm}
+\setlength{\parindent}{5ex}
+\setlist{leftmargin=5ex, itemsep=0mm, parsep=0mm, topsep=0mm}
+\def\labelitemi{--}
+\def\labelitemii{--}
+\def\labelitemiii{--}
+\def\labelitemiv{--}
+\linespread{1.3}
+\titleformat{name=\section,numberless}{\centering\nohyphens}{}{0pt}{\setcounter{tabcount}{0}\bfseries\ \uppercase}{}
+\titleformat{\section}{\centering\nohyphens}{}{0pt}{\setcounter{tabcount}{0}\bfseries\thesection\ \uppercase}{}
+\titleformat{\subsection}{\sloppypar\nohyphens}{}{0pt}{\bfseries\thesubsection\ }{}
+\titleformat{\subsubsection}{\sloppypar\nohyphens}{}{0pt}{\bfseries\thesubsubsection\ }{}
+\titlespacing{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsection}{\parindent}{\parskip}{-\parskip}
+\titlespacing{\subsubsection}{\parindent}{\parskip}{-\parskip}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\setdefaultlanguage{ukrainian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont[Mapping=tex-text]{Times New Roman}
+\newfontfamily\cyrillicfonttt{Courier New}
+\begin{document}
+\input{globals.tex}
+\pagestyle{empty}
+
+\begin{center}
+Одеський національний політехнічний університет
+
+Інститут комп'ютерних систем
+
+Кафедра системного програмного забезпечення
+\vspace{55mm}
+
+\textbf{Пояснювальна записка}
+
+до дипломної роботи бакалавра
+
+на тему <<Система обліку платних курсів. Модуль обліку платних курсів>>
+\end{center}
+\vspace{4cm}
+\begin{flushleft}
+Виконав: студент IV курсу, групи АС-122
+
+напряму підготовки
+
+6.050103 --- Програмна інженерія
+
+Горбешко Б. М.
+
+Керівник Оніщенко Т. В.
+
+Рецензент
+\end{flushleft}
+\vspace{45mm}
+\begin{center}Одеса --- 2016\end{center}
+\newpage
+\input{tz_inc.tex}
+\newpage
+\makeatletter\renewcommand{\@oddhead}{\hfil\thepage}\makeatother
+
+\def\contentsname{ЗМІСТ}
+\tableofcontents
+\newpage
+\input{intro_inc.tex}
+
+\input{pp_pw1_inc.tex}
+\input{pp_pw2_inc.tex}
+\input{pp_pw3_inc.tex}
+\input{pp_pw4_inc.tex}
+\input{pp_pw5_inc.tex}
+\input{pp_pw6_inc.tex}
+\input{pp_pw7_inc.tex}
+\input{conclus_inc.tex}
+\end{document}

@@ -1,18 +1,23 @@
+\bigbreak
 \subsection{Функціональне тестування}
+\bigbreak
 \tablabel{Тестові випадки для варіантів використання}\\
+\nopagebreak[4]
 %\newcounter{tcnt}\def\tcn{\addtocounter{tcnt}{1} \thetcnt}
 \setcounter{tcnt}{0}
-\tablefirsthead{}
+\def\testhead{
+ \hline
+ \Centering \textbf{Test Case №} &
+ \Centering \textbf{Дія} &
+ \Centering \textbf{Очікуваний результат} &
+ \Centering \textbf{Результат тестування} \\\hline
+}
+\tablefirsthead{\testhead}
 \tablelasttail{}
-\tablehead{\hline \multicolumn{4}{|l|}{Продовження таблиці \thesection .\thetabcount} \\}
+\tablehead{\hline \multicolumn{4}{|l|}{Продовження таблиці \thesection .\thetabcount} \\\testhead}
 \tabletail{\hline}
-\begin{supertabular}{|p{13mm}|p{65mm}|p{45mm}|p{3cm}|}
-\hline
-\textbf{Test Case №} &
-\textbf{Дія} &
-\textbf{Очікуваний результат} &
-\textbf{Результат тестування (успішний (passed) / неуспішний (failed))} \\
-\hline \tcn
+\begin{supertabular}{|p{11mm}|p{70mm}|p{55mm}|p{3cm}|}
+\tcn
 & Перейти на сторінку реєстрації
 & Відкрилася сторінка реєстрації
 & Passed
