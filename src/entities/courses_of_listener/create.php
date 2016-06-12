@@ -15,7 +15,8 @@ foreach ($ids as $idk => $id) {
    0,
    "b'1'",
    my_userid(),
-   0
+   0,
+   NULL
   ]
  ]),$db);
 };

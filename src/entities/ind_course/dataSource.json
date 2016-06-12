@@ -9,16 +9,30 @@
     },
     "idTeacher": {
     },
+    "DateBegin": {
+     "type": "date",
+     "format": "{0:yyyy-MM-dd}"
+    },
+    "DateEnd": {
+     "type": "date",
+     "format": "{0:yyyy-MM-dd}"
+    },
+    "lessons": {
+     "editable": false
+    },
     "price": {
      "type": "number"
     },
     "state": {
-     "type": "number"
+     "type": "number",
+     "defaultValue": 1
     },
     "spec": {
      "type": "number"
     },
     "idListener": {
+    },
+    "oldIdListener": {
     },
     "havePaid": {
      "type": "number"

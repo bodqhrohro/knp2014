@@ -33,7 +33,8 @@ $check=$check &&
    $_POST['havePaid'],
    "b'1'",
    my_userid(),
-   0
+   0,
+   NULL
   ]
  ]),$db);
 if (!$check) {

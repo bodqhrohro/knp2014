@@ -283,14 +283,14 @@ function getLessonTypeList(cont, opt) {
 function listenerPicker(cont,opt){
  var $container=$('<div/>').css('z-index',100000).attr('id','listenerPicker').kendoPopup({
   draggable: false,
-  position: {
-   top: 0,
-   left: 0
-  }
+  anchor: cont,
+  collision: 'fit',
+  origin: 'top left'
  });
  //CALLBACK
  var initTabChooser=function(response){
   $container.html(response);
+  var popup = $container.data('kendoPopup');
   var initTreeView=function(data) {
    var ds={};
    ds['data']=data;
@@ -301,25 +301,28 @@ function listenerPicker(cont,opt){
      data: "items"
     }
    };
-   ($container.find('#treeItemList')).kendoTreeView({
+   var tree = $container.find('#treeItemList').kendoTreeView({
     dataSource: new kendo.data.HierarchicalDataSource(ds),
-    cnahge: function(e) {
-     console.log(e);
+    select: function(e) {
+     $input.val(tree.data('kendoTreeView').dataItem(e.node).id);
+     $input.trigger('change');
+     popup.destroy();
+     $container.remove();
     }
    });
   };
   var removeTabChooser=function() { $('#listenerPicker').remove(); };
   $.getJSON("ajax/returnListeners.php",initTreeView);
   $('#modalButtons').hide();
+  popup.open();
  };
  var request={
   url: 'lib/tabChooserTemplate.html',
   success: initTabChooser
  };
  $.ajax(request);
- $('<input type="hidden" name="idListener" data-bind="value:' + opt.field + '"/>')
+ var $input = $('<input type="hidden" name="idListener" data-bind="value:' + opt.field + '"/>')
   .appendTo(cont);
- $container.appendTo(cont).show();
 }
 function lessonsEditor(idCourse, name){
  var entity='lesson';
@@ -629,6 +632,7 @@ function commonDataSourceDef(response,entity,data){
  return response;
 }
 function tableEdit(e){
+ console.log(e.model);
  (e.container).addClass('edited_row');
 }
 function tableSave(e){

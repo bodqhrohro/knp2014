@@ -27,7 +27,8 @@
      "type": "number"
     },
     "state": {
-     "type": "number"
+     "type": "number",
+     "defaultValue": 1
     },
     "spec": {
      "type": "number"

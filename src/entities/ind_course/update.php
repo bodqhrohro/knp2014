@@ -17,6 +17,15 @@ $check=mysql_query(sql([
  ],
  'where' => 'idCourse='.$_POST['idCourse']
 ]),$db);
+$check=$check &&
+ mysql_query(sql([
+  'update' => 'Course_Listeners',
+  'set' => [
+   'idListener' => $_POST['idListener'],
+   'havePaid' => $_POST['havePaid']
+  ],
+  'where' => 'idCourse='.$_POST['idCourse'].' and idListener='.$_POST['oldIdListener']
+]),$db);
 if (!$check) {
  http_response_code(400);
 } else {
