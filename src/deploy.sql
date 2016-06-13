@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `Description` varchar(400) DEFAULT NULL,
   `isIndividual` bit(1) NOT NULL,
   `idTeacher` int(11) DEFAULT NULL,
+  `idTeacher2` int(11) DEFAULT NULL,
   `isCompleted` bit(1) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `state` tinyint(1) NOT NULL,

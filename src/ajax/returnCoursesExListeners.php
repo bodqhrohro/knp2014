@@ -26,7 +26,7 @@ for (;$result=mysql_fetch_array($q1, MYSQL_ASSOC);$i++){
     'select' => ['idCourse'],
     'from' => ['Course_Listeners'],
     'where' => 'idListener='.$_GET['id']
-   ]).') and idTeacher='.$result['idTeacher'],
+   ]).') and (idTeacher='.$result['idTeacher'].' or idTeacher2='.$result['idTeacher'].')',
    'order by' => 'Name'
  ]));
  for (;$result2=mysql_fetch_array($q2, MYSQL_ASSOC);$i++){

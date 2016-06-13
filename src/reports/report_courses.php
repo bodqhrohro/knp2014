@@ -15,6 +15,7 @@ $courses=mysql_query(sql([
   'min(date) DateBegin',
   'max(date) DateEnd',
   'idTeacher',
+  'idTeacher2',
   'count(date) hours'
  ],
  'from' => 'courses left join lessons on courses.idCourse = lessons.idCourse',
@@ -42,16 +43,20 @@ for ($i=1;$tmp1=mysql_fetch_array($courses);$i++){
    'Patronymic'
   ],
   'from' => 'teachers',
-  'where' => 'idTeacher='.$tmp1['idTeacher']
+  'where' => 'idTeacher='.$tmp1['idTeacher'].($tmp1['idTeacher2'] ? ' or idTeacher='.$tmp1['idTeacher2'] : '')
  ]),$db);
- $tmp4=mysql_fetch_array($tmp4);
+ $tmp5=mysql_fetch_array($tmp4);
+ $tmp6=mysql_fetch_array($tmp4);
  $mpdf->WriteHTML("<tr>",2);
  $mpdf->WriteHTML("<td class='cell1'>".$i."</td>",2);
  $tmp3=$tmp2[1]*$tmp1['price'];
  $mpdf->WriteHTML("<td>".$tmp1['Name']."<br>С ".date("d/m/Y",strtotime($tmp1['DateBegin']))." по ".date("d/m/Y",strtotime($tmp1['DateEnd']))."<br>".$tmp2[1]." чел. * ".$tmp1['hours']." час."." * ".$tmp1['price']." грн. =".$tmp3." грн.</td>",2);
  $tmp3-=$tmp2[0];
  $debtsum+=$tmp3;
- $mpdf->WriteHTML("<td class='cell1'>".shortName($tmp4['Surname'],$tmp4['Name'],$tmp4['Patronymic'])."</td>",2);
+ $mpdf->WriteHTML("<td class='cell1'>"
+  .($tmp5 ? shortName($tmp5['Surname'],$tmp5['Name'],$tmp5['Patronymic']) : '')
+  .($tmp6 ? ",\n".shortName($tmp6['Surname'],$tmp6['Name'],$tmp6['Patronymic']) : '')
+  ."</td>",2);
  $mpdf->WriteHTML("<td class='cell1'>".$tmp3."</td>");
  $mpdf->WriteHTML("<td class='cell1'>".$tmp2[0]."</td>",2);
  $mpdf->WriteHTML("</tr>",2);

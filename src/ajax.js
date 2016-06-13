@@ -144,14 +144,16 @@ function openTable(entity){
    case 'course':
     //teachers dropdown
     response['columns'][2]['editor']=getTeachersList;
-    response['columns'][5]['editor']=getStateList;
+    response['columns'][3]['editor']=getTeachersList;
+    response['columns'][6]['editor']=getStateList;
     //listeners rollover
     response['detailInit']=getListenersByCourse;
    break;
    case 'ind_course':
     response['columns'][2]['editor']=getTeachersList;
-    response['columns'][5]['editor']=getStateList;
-    response['columns'][7]['editor']=listenerPicker;
+    response['columns'][3]['editor']=getTeachersList;
+    response['columns'][6]['editor']=getStateList;
+    response['columns'][8]['editor']=listenerPicker;
    break;
    case 'listener':
     //courses rollover
@@ -219,7 +221,8 @@ function getTeachersList(cont,opt){
      }
     },
     dataTextField: 'TSNP',
-    dataValueField: 'idTeacher'
+    dataValueField: 'idTeacher',
+    valuePrimitive: true
    });
 }
 /*function getListenersList(cont,opt){

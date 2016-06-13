@@ -9,6 +9,8 @@
     },
     "idTeacher": {
     },
+    "idTeacher2": {
+    },
     "DateBegin": {
      "type": "date",
      "format": "{0:yyyy-MM-dd}"

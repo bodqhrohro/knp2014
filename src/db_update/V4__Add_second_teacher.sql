@@ -1,0 +1,1 @@
+ALTER TABLE courses ADD COLUMN `idTeacher2` int(11) DEFAULT NULL;

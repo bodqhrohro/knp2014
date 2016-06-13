@@ -11,12 +11,15 @@ $db=connectDB();
 $courses=mysql_query(sql([
  'select' => [
   'courses.Name',
-  'Surname',
-  'teachers.Name TName',
-  'Patronymic',
+  't.Surname tSurname',
+  't.Name tName',
+  't.Patronymic tPatronymic',
+  't2.Surname t2Surname',
+  't2.Name t2Name',
+  't2.Patronymic t2Patronymic',
   'sum(havePaid) havePaid'
  ],
- 'from' => 'courses left join teachers on courses.idTeacher=teachers.idTeacher left join Course_Listeners on courses.idCourse = Course_Listeners.idCourse',
+ 'from' => 'courses left join teachers t on courses.idTeacher=t.idTeacher left join teachers t2 on courses.idTeacher2=t2.idTeacher left join Course_Listeners on courses.idCourse = Course_Listeners.idCourse',
  'where' => 'isIndividual=0 AND courses.idCourse in ('.sql([
   'select distinct' => 'idCourse',
   'from' => 'lessons',
@@ -30,7 +33,10 @@ for ($i=1;$tmp1=mysql_fetch_array($courses);$i++){
  $mpdf->WriteHTML("<tr>",2);
  $mpdf->WriteHTML("<td class='cell1'>".$i."</td>",2);
  $mpdf->WriteHTML("<td>".$tmp1['Name']."</td>",2);
- $mpdf->WriteHTML("<td class='cell1'>".shortName($tmp1['Surname'],$tmp1['TName'],$tmp1['Patronymic'])."</td>",2);
+ $mpdf->WriteHTML("<td class='cell1'>"
+  .($tmp1['tSurname'] ? shortName($tmp1['tSurname'],$tmp1['tName'],$tmp1['tPatronymic']) : '')
+  .($tmp1['t2Surname'] ? ",\n".shortName($tmp1['t2Surname'],$tmp1['t2Name'],$tmp1['t2Patronymic']) : '')
+  ."</td>",2);
  $mpdf->WriteHTML("<td class='cell1'>".$tmp1['havePaid']."</td>",2);
  $mpdf->WriteHTML("</tr>",2);
 }

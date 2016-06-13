@@ -7,7 +7,8 @@
  "columns": [
   { "field": "Name", "title": "Название" },
   { "field": "Description", "title": "Описание" },
-  { "field": "idTeacher", "title": "Преподаватель", "template": "#= e(data.TSNP==null?'':data.TSNP) #" },
+  { "field": "idTeacher", "title": "Л. Преподаватель", "template": "#= e(data.TSNP==null?'':data.TSNP) #" },
+  { "field": "idTeacher2", "title": "П. Преподаватель", "template": "#= e(data.TSNP2==null?'':data.TSNP2) #" },
   { "field": "lessons", "title": "Расписание", "template": "<a class='k-button' onclick='lessonsEditor(#=idCourse#, \"#=Name#\")'>#= e((kendo.toString(data.DateBegin, 'dd.MM.yy')||'')+' - '+data.hours+' - '+(kendo.toString(data.DateEnd, 'dd.MM.yy')||'')) #</a>" },
   { "field": "price", "title": "Стоимость", "template": "#= e(data.price?data.price:'Авто') #", "width": "100px" },
   { "field": "state", "title": "Состояние", "template": "#= e(courses2014.course_states[data['state']]) #", "width": "130px" },

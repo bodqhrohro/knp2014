@@ -14,6 +14,7 @@ $check=mysql_query(sql([
   $_POST['Description'],
   "b'1'",
   $_POST['idTeacher'],
+  $_POST['idTeacher2'],
   NULL,
   empty($_POST['price'])?NULL:$_POST['price'],
   $_POST['state'],
@@ -42,6 +43,7 @@ if (!$check) {
 } else {
  $_POST['idCourse']=mysql_insert_id($db);
  $_POST['TSNP']=getTeacherSNP($_POST['idTeacher']);
+ $_POST['TSNP2']=getTeacherSNP($_POST['idTeacher2']);
  $_POST['LSNP']=getListenerSNP($_POST['idListener']);
  echo json_encode([$_POST],JSON_UNESCAPED_UNICODE);
 }

@@ -131,17 +131,40 @@ function getCoursePrice($courseid,$full,$verif=true){
   ]));
   $q1=mysql_fetch_array($q1,MYSQL_NUM);
   $q3=mysql_query(sql([
-   'select' => ['salary'],
-   'from' => ['prices'],
-   'where' => 'degree in ('.sql([
-    'select' => 'degree',
-    'from' => 'teachers',
-    'where' => 'idTeacher in ('.sql([
-     'select' => 'idTeacher',
-     'from' => 'courses',
-     'where' => 'idCourse='.$courseid
+   'select' => 'ifnull(s1,0)*ifnull(c1,0)+ifnull(s2,0)*ifnull(c2,0) salary',
+   'from' => '(('.sql([
+    'select' => ['salary s1'],
+    'from' => ['prices'],
+    'where' => 'degree in ('.sql([
+     'select' => 'degree',
+     'from' => 'teachers',
+     'where' => 'idTeacher in ('.sql([
+      'select' => 'idTeacher',
+      'from' => 'courses',
+      'where' => 'idCourse='.$courseid
+     ]).')'
     ]).')'
-   ]).')'
+   ]).') s1 left outer join ('.sql([
+    'select' => ['salary s2'],
+    'from' => ['prices'],
+    'where' => 'degree in ('.sql([
+     'select' => 'degree',
+     'from' => 'teachers',
+     'where' => 'idTeacher in ('.sql([
+      'select' => 'idTeacher2',
+      'from' => 'courses',
+      'where' => 'idCourse='.$courseid
+     ]).')'
+    ]).')'
+   ]).') s2 on 1=1) left outer join (('.sql([
+    'select' => 'count(*) c1',
+    'from' => 'lessons',
+    'where' => 'idCourse='.$courseid.' and type=0'
+   ]).') c1 on 1=1) left outer join ('.sql([
+    'select' => 'count(*) c1',
+    'from' => 'lessons',
+    'where' => 'idCourse='.$courseid.' and type=1'
+   ]).') c2) on 1=1)'
   ]));
   $q3=mysql_fetch_array($q3,MYSQL_ASSOC);
   $q4=mysql_query(sql([
