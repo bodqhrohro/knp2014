@@ -471,16 +471,6 @@ function callTabChooser(id,entity){
  //CALLBACK
  var initTabChooser=function(response){
   $container.html(response);
-  ($container.find('#uGroupStrip')).kendoTabStrip({
-   dataSource: {
-    transport: {
-     read: {
-      url: 'ajax/returnUGroups.php',
-      dataType: 'json'
-     }
-    }
-   }
-  });
   var initTreeView=function(data) {
    var ds={};
    ds['data']=data;

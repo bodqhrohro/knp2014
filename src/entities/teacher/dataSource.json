@@ -4,6 +4,9 @@
    "id": "idTeacher",
    "fields": {
     "Surname": {
+     "validation": {
+      "required": true
+     }
     },
     "Name": {
     },

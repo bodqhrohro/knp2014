@@ -4,6 +4,9 @@
    "id": "idListener",
    "fields": {
     "Surname": {
+     "validation": {
+      "required": true
+     }
     },
     "Name": {
     },

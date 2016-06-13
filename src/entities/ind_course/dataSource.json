@@ -4,6 +4,9 @@
    "id": "idCourse",
    "fields": {
     "Name": {
+     "validation": {
+      "required": true
+     }
     },
     "Description": {
     },
@@ -30,7 +33,12 @@
      "defaultValue": 1
     },
     "spec": {
-     "type": "number"
+     "type": "number",
+     "validation": {
+      "min": 0,
+      "max": 1,
+      "step": 1
+     }
     },
     "idListener": {
     },
