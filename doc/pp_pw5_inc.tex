@@ -1,12 +1,13 @@
 \bigbreak
 \subsection{Модульне тестування}
 \bigbreak
+Перед початком тестування слід заповнити порожню базу даних тестовими даними (табл. 3.1--3.7). Тестування алгоритму розрахунку вартості курсу проведено методом <<білої скрині>> (таблиця 3.8), алгоритму аутентифікації та авторизації --- методом <<чорної скрині>> (таблиця 3.9).
+\def\testhead{\hline Атрибут & \multicolumn{2}{c|}{Значення} \\\hline}
+\tablefirsthead{\testhead}
+\tablehead{\multicolumn{3}{l}{Продовження таблиці \thesection .\thetabcount} \\\hline\testhead}
 \tablabel{Тестові дані для таблиці courses}
 \begin{center}
-\begin{tabular}{|l|c|c|}
-\hline
-Атрибут & \multicolumn{2}{c|}{Значення} \\
-\hline
+\begin{supertabular}{|l|c|c|}
 idCourse & 1 & 2 \\
 Name & a & b \\
 Description & a & b \\
@@ -17,10 +18,9 @@ Price & 15 & 0 \\
 state & 0 & 0 \\
 affectedBy & user1 & user2 \\
 \hline
-\end{tabular}
+\end{supertabular}
 \end{center}
 
-\newpage
 \tablabel{Тестові дані для таблиці Course\_Listeners}
 \begin{center}
 \begin{tabular}{|l|c|c|c|c|}
@@ -54,6 +54,7 @@ affectedBy & user1 & user2 \\
 \end{tabular}
 \end{center}
 
+\newpage
 \tablabel{Тестові дані для таблиці prices}
 \begin{center}
 \begin{tabular}{|l|c|c|c|}
@@ -82,7 +83,6 @@ type & 1 & 1 & 2 & 1 & 2 & 2 \\
 \end{tabular}
 \end{center}
 
-\newpage
 \tablabel{Тестові дані для таблиці users}
 \begin{center}
 \begin{tabular}{|l|c|c|c|}
@@ -112,7 +112,6 @@ value & 1.12 & 1.23 & 1.05 \\
 \end{tabular}
 \end{center}}
 
-Тестування алгоритму розрахунку вартості курсу проведено методом "білої скрині" (таблиця 3.7), алгоритму аутентифікації та авторизації --- методом "чорної скрині" (таблиця 3.8).
 \tablabel{Тестові випадки для алгоритму розрахунку вартості курсу}
 \newcounter{tcnt}\def\tcn{\addtocounter{tcnt}{1} \thetcnt}
 \begin{tabular}{|c|c|c|c|c|}
@@ -120,32 +119,33 @@ value & 1.12 & 1.23 & 1.05 \\
 \multirow{2}{23mm}{\centering \textbf{Test Case №}} &
 \multicolumn{2}{c|}{\textbf{Вхідні дані}} &
 \multirow{2}{27mm}{\centering \textbf{Очікуваний результат}} &
-\multirow{2}{77mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
+\multirow{2}{91mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
 \cline{2-3}
 &id&full&&\tabularnewline
 \hline
-\tcn& 1	& true	& 60	&	\\
-\tcn& 2	& true	& 15	&	\\
-\tcn& 1	& false	& 20	&	\\
-\tcn& 2	& false	& 15	&	\\
+\tcn& 1	& true	& 60	& Passed \\
+\tcn& 2	& true	& 15	& Passed \\
+\tcn& 1	& false	& 20	& Passed \\
+\tcn& 2	& false	& 15	& Passed \\
 \hline
 \end{tabular}
+
 \setcounter{tcnt}{0}
 \tablabel{Тестові випадки для алгоритму аутентифікації та авторизації}\\
-\begin{tabular}{|c|c|c|c|c|}
+\noindent\begin{tabular}{|c|c|c|c|c|}
 \hline
 \multirow{2}{18mm}{\centering \textbf{Test Case №}} &
 \multicolumn{2}{c|}{\textbf{Вхідні дані}} &
 \multirow{2}{27mm}{\centering \textbf{Очікуваний результат}} &
-\multirow{2}{75mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
+\multirow{2}{90mm}{\centering \textbf{Результат тестування (успішний (passed) / неуспішний (failed))}} \tabularnewline
 \cline{2-3}
 &login&pass&&\tabularnewline
 \hline
-\tcn& 'adm1'	& 'asdf'	& Вхід		&	\\
-\tcn& 'adm1'	& 'qwer'	& Відмова	&	\\
-\tcn& 'adm1'	& NULL		& Відмова	&	\\
-\tcn& 'user3'	& 'qwer'	& Відмова	&	\\
-\tcn& 'user3'	& 'sdfj'	& Відмова	&	\\
-\tcn& 'user2'	& 'zxcv'	& Відмова	&	\\
+\tcn& 'adm1'	& 'asdf'	& Вхід		& Passed \\
+\tcn& 'adm1'	& 'qwer'	& Відмова	& Passed \\
+\tcn& 'adm1'	& NULL		& Відмова	& Passed \\
+\tcn& 'user3'	& 'qwer'	& Відмова	& Passed \\
+\tcn& 'user3'	& 'sdfj'	& Відмова	& Passed \\
+\tcn& 'user2'	& 'zxcv'	& Відмова	& Passed \\
 \hline
 \end{tabular}

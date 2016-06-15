@@ -1,26 +1,22 @@
-\bigbreak
+\newpage
 \section{Проектування програмного продукту}
 \subsection{Концептуальне проектування}
 \bigbreak
-Діаграму концептуальних класів наведено на рис. 6.
+Діаграму концептуальних класів наведено на рис. 2.1.
 
 \noindent\includegraphics[width=17cm]{pp_pw3_conc.png}
 \imglabel{Діаграма концептуальних класів}
 
-Клас <<Курс>> характеризується високою зв'язністю, тобто це головний клас у системі.
-\newpage
+Клас <<Курс>> характеризується високою зв'язністю [8], тобто це головний клас у системі.
+\bigbreak
 \subsection{Логічне проектування}
 \bigbreak
-Діаграму програмних класів наведено на рис. 7.
-
-\noindent\includegraphics[width=17cm]{pp_pw3_clas.png}
-\imglabel{Діаграма програмних класів}
+Діаграму програмних класів наведено на рис. А.5.
 
 Як і на діаграмі концептуальних класів, клас Course характеризується високою зв'язністю та має найбільшу кількість атрибутів. Також високу зв'язність має AccessControl, що відповідає висновку з пункту 1.2.1.
 
-\newpage
-\subsection{База даних}
 \bigbreak
+\subsection{База даних}
 \def\dbhead{
  \hline
  \Centering Ключ &
@@ -32,11 +28,9 @@
  \hline
 }
 \tablefirsthead{\dbhead}
-\tablelasttail{}
-\tablehead{\hline \multicolumn{4}{|l|}{Продовження таблиці \thesection .\thetabcount} \\\dbhead}
-\tabletail{\hline}
+\tablehead{\multicolumn{4}{l}{Продовження таблиці \thesection .\thetabcount} \\\hline\dbhead}
 \def\dbtable#1#2#3{
- \tablabel{Опис структури таблиці "#1" (#2)}\\
+ \tablabel{Опис структури таблиці <<#1>> (#2)}\\
  \begin{supertabular}{|p{1.2cm}|p{3.5cm}|p{3cm}|p{2.8cm}|p{1.2cm}|p{4.3cm}|}
  #3
  \hline
@@ -75,11 +69,12 @@ FK & Слухач & idListener & int(6) & Ні & \\
  & Оцінка & mark & tinyint(3) & Так & \\
 FK & Ким змінено & affectedBy & varchar(32) & Ні & \\
 }
+\newpage
 \dbtable{Платежі}{payments}{
 PK & Ідентифікатор & idPayment & int(6) & Ні & A\_I\\
 FK & Слухач курсу & idCL & int(6) & Ні & \\
  & Кошти & delta & int(6) & Ні & \\
- & Мітка часу & timestamp & timestamp & Ні & CURRENT\_\ TIMESTAMP\\
+ & Мітка часу & timestamp & timestamp & Ні & CURRENT\_\newline TIMESTAMP\\
 }
 \dbtable{Викладачі}{teachers}{
 PK & Ідентифікатор & idTeacher & int(6) & Ні & A\_I\\
@@ -119,37 +114,7 @@ PK & Логін & login & varchar(32) & Ні & \\
 \bigbreak
 \subsection{Оцінка алгоритмічної складності}
 \bigbreak
-\input{gost_algo.tex}
-На рис. 8 зазначено складну операцію розрахунку вартості за даними з БД. Вона реалізується наступним SQL-запитом:
-
-\begin{figure}[t]
-\begin{center}
-{ \fontsize{12pt}{14pt} \selectfont
-\begin{tikzpicture}[%
-    start chain=going below,
-    node distance=5mm and 60mm,
-        ]
-        \node [cloud] (start) {getCoursePrice(id, full)};
-	\node [block, join] (global) {PRICE\_TRUNK := 10};
-	\node [block, join] (q1) {price := вартість з таблиці courses\\для курсу id,};
-	\node [decision, join] (q1cond) {price = 0};
-	\node [block, join] (q2) {count := кількість слухачів\\з таблиці Course\_Listeners\\для курсу id};
-	\node [block, join] (q3) {salary := (зарплата з таблиці prices\\для вченого ступеню з таблиці teachers\\для викладача з таблиці courses) *\\(кількість занять з таблиці lessons\\з типом <<Лекція>>) + (зарплата з таблиці prices\\для вченого ступеню з таблиці teachers\\для другого викладача з таблиці courses) *\\(кількість занять з таблиці lessons\\з типом <<Практика>>)};
-        \node [subroutine, join, subrtshape w = 3mm, fxd] (coefficients) {coef := getCoefficients()};
-	\node [block, join] (price) {price := $\left[ \frac{salary \cdot coef.personal \cdot coef.bonus \cdot coef.others}{count \cdot PRICE\_TRUNK}\right] \cdot PRICE\_TRUNK$};
-	\node [decision, join] (fullcond) {full};
-	\node [block] (fullmul) {price := $price \cdot count$};
-        \node [cloud, join] (finish) {Повернення price};
-
-        \path [line] (q1cond) to node [r] {Так} (q2);
-        \path [line] (q1cond) -- node [u,near start] {Ні} ++(7cm, 0cm) |- (finish);
-        \path [line] (fullcond) to node [r] {Так} (fullmul);
-        \path [line] (fullcond) -- node [u,near start] {Ні} ++(3cm, 0cm) |- (finish);
-\end{tikzpicture}
-}
-\end{center}
-\imglabel{Алгоритм розрахунку вартості курсу}
-\end{figure}
+На рис. А.6 зазначено складну операцію розрахунку вартості за даними з БД. Вона реалізується наступним SQL-запитом:
 
 { \fontsize{11pt}{12pt} \selectfont
 \begin{verbatim}
@@ -160,7 +125,7 @@ SELECT ifnull(s1,0)*ifnull(c1,0)+ifnull(s2,0)*ifnull(c2,0) FROM ((
 ))) s1 LEFT OUTER JOIN (
  SELECT salary as s2 FROM prices WHERE degree IN(
   SELECT degree FROM teachers WHERE idTeacher IN (
-   SELECT idTeacher2 FROM courses WHERE idCourse=63
+   SELECT idTeacher2 FROM courses WHERE idCourse=?
 ))) s2 ON 1=1) LEFT OUTER JOIN ((
  SELECT count(*) as c1 FROM lessons WHERE idCourse=? AND type=0
 ) c1 ON 1=1 LEFT OUTER JOIN (
@@ -211,53 +176,13 @@ CREATE INDEX course_of_lesson ON lessons (idCourse);
 \end{verbatim}
 }
 
-Циклів в алгоритмах на рис. 8 та 9 немає, тож їх складність --- O(N).
-
-\begin{figure}[t]
-\begin{center}
-{ \fontsize{12pt}{14pt} \selectfont
-\begin{tikzpicture}[%
-    start chain=going below,
-    node distance=5mm and 60mm,
-        ]
-        \node [cloud] (start) {user\_login(login, pass)};
-	\node [block, join] (config) {config := з файлу конфігурації};
-	\node [block, join] (q1) {user[password, salt, sessionid] := з\\таблиці users для логіну login};
-	\node [decision, join] (q1cond) {user = $\emptyset$};
-	\node [decision, yshift=-3mm] (confcond) {sessionid = <<q>>};
-	\node [block] (crypt) {hash := crypt(pass,\\config.global\_salt)};
-	\node [decision, join] (passcond) {pass = hash};
-	\node [block] (gensess) {sess\_id := randhash(login, 500)};
-	\node [block, join] (updsess) {Встановити в\\таблиці users\\sessionid := sess\_id\\для логіну login};
-	\node [block, join] (cookiesess) {Записати sess\_id в Cookies};
-	\node [block, join] (gotomain) {Перейти на головну сторінку};
-        \node [cloud, join] (finish) {Вихід};
-
-	\node [block, right of = q1cond, node distance = 8.5cm, yshift = -5mm] (err5) {Помилка 400:\\користувача не знайдено};
-	\node [block, right of = confcond, node distance = 6.2cm, yshift = -5mm] (err10) {Помилка 403:\\обліковий запис\\ще не підтверджено};
-	\node [block, right of = passcond, node distance = 4.5cm, yshift = -5mm] (err6) {Помилка 403:\\пароль невірний};
-
-        \path [line] (q1cond) to node [r] {Ні} (confcond);
-        \path [line] (q1cond) -| node [u,near start] {Так} (err5);
-        \path [line] (err5) |- node {} (finish);
-        \path [line] (confcond) to node [r] {Ні} (crypt);
-        \path [line] (confcond) -| node [u,near start] {Так} (err10);
-        \path [line] (err10) |- node {} (finish);
-        \path [line] (passcond) to node [r] {Так} (gensess);
-        \path [line] (passcond) -| node [u,near start] {Ні} (err6);
-        \path [line] (err6) |- node {} (finish);
-\end{tikzpicture}
-}
-\end{center}
-\imglabel{Алгоритм аутентифікації та авторизації}
-\end{figure}
+Циклів в алгоритмах на рис. А.6 та А.7 немає, тож їх складність --- \emph{O(1)} [9].
 
 \bigbreak
 \subsection{Опис зовнішних інтерфейсів}
 \bigbreak
-Інтерфейс користувача побудовано із використанням бібліотеки Kendo UI, дизайн визначається наявними для неї темами оформлення. Доступні самостійні концептуальні класи присутні у головному меню та розташовані за частотою використання: найактивніша робота проводиться зі слухачами та курсами, викладачі та користувачі заповнюються на початку роботи і потім змінюються рідко, звіти здаються рідко, розцінки та коефіціенти змінюються у виключних випадках. В кінці головного меню розміщено кнопку виходу з системи. Екрану авторизації є окремим та лаконічним, містить лише форму та кнопку перемикання форм реєстрації та входу.
+Інтерфейс користувача побудовано із використанням бібліотеки Kendo UI, дизайн визначається наявними для неї темами оформлення. Доступні самостійні концептуальні класи присутні у головному меню та розташовані за частотою використання: найактивніша робота проводиться зі слухачами та курсами, викладачі та користувачі заповнюються на початку роботи і потім змінюються рідко, звіти здаються рідко, розцінки та коефіціенти змінюються у виключних випадках. В кінці головного меню розміщено кнопку виходу з системи. Екран авторизації є окремим та лаконічним, містить лише форму та кнопку перемикання форм реєстрації та входу.
 
 Для роботи серверної частини системи потрібен веб-сервер Apache 2.x, інтерпретатор PHP5 не нижче 5.4, СКБД MySQL або MariaDB 5. Для користування клієнтською частиною потрібен web-браузер із підтримкою EcmaScript 5; тестування проводиться у поточних версіях браузерів Mozilla Firefox та Chromium для десктопу.
 
-Система може працювати у межах однієї машини, через локальну мережу та через мережу Інтернет, в залежності від мережевих підключень та налаштувань машини, на якій встановлено серверну частину. Підключення, відповідно, може здійснюватись будь-яким доступним дротовим або бездротовим каналом підключення до локальної мережі або мережі Інтернет: Ethernet, Wi-Fi, ADSL, HSPA, Dial-up та ін. Оскільки звіти генеруються у форматі PDF, для їх перегляду потрібна програма --- переглядач PDF: Mozilla Firefox, Google Chrome, Adobe Reader, Foxit Reader тощо. Для друку потрібен принтер, підключений безпосередньо до машини, на якій відкрито файл звіту, або доступний для неї через мережу.
-\FloatBarrier
+Система може працювати у межах однієї машини, через локальну мережу та через мережу Інтернет, в залежності від мережевих підключень та налаштувань машини, на якій встановлено серверну частину. Підключення, відповідно, може здійснюватись будь-яким доступним дротовим або бездротовим каналом підключення до локальної мережі або мережі Інтернет: Ethernet, Wi-Fi, ADSL, HSPA, Dial-up та ін. Оскільки звіти генеруються у форматі PDF, для їх перегляду потрібна програма --- переглядач PDF: Mozilla Firefox, Google Chrome, Adobe Reader, Foxit Reader тощо. [10] Для друку потрібен принтер, підключений безпосередньо до машини, на якій відкрито файл звіту, або доступний для неї через мережу.

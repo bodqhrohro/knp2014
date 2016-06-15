@@ -1,5 +1,5 @@
 \documentclass[a4paper,14pt]{article}
-\usepackage{showframe}
+%\usepackage{showframe}
 \usepackage{indentfirst}
 \usepackage{extsizes}
 \usepackage{fontspec}
@@ -7,10 +7,12 @@
 \usepackage{amssymb}
 \usepackage{hyphenat}
 \usepackage{enumitem}
-\setlist{nolistsep}
+\usepackage{minted}
+\usepackage{etoolbox}
 \usepackage[rm,center,uppercase,tiny]{titlesec}
 \usepackage{standalone}
 \usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, pdfborderstyle={}}
 \usepackage{supertabular}
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
@@ -23,14 +25,14 @@
 \usepackage{polyglossia}
 \setlength{\headsep}{1cm}
 \setlength{\parindent}{5ex}
-\setlist{leftmargin=5ex, itemsep=0mm, parsep=0mm, topsep=0mm}
+\setlist{wide=\parindent, nosep}
 \def\labelitemi{--}
 \def\labelitemii{--}
 \def\labelitemiii{--}
 \def\labelitemiv{--}
 \linespread{1.3}
 \titleformat{name=\section,numberless}{\centering\nohyphens}{}{0pt}{\setcounter{tabcount}{0}\bfseries\ \uppercase}{}
-\titleformat{\section}{\centering\nohyphens}{}{0pt}{\setcounter{tabcount}{0}\bfseries\thesection\ \uppercase}{}
+\titleformat{\section}{\centering\nohyphens}{}{0pt}{\setcounter{tabcount}{0}\setcounter{imgcount}{0}\bfseries\thesection\ \uppercase}{}
 \titleformat{\subsection}{\sloppypar\nohyphens}{}{0pt}{\bfseries\thesubsection\ }{}
 \titleformat{\subsubsection}{\sloppypar\nohyphens}{}{0pt}{\bfseries\thesubsubsection\ }{}
 \titlespacing{\section}{0pt}{\parskip}{-\parskip}
@@ -61,7 +63,8 @@
 на тему <<Система обліку платних курсів. Модуль обліку платних курсів>>
 \end{center}
 \vspace{4cm}
-\begin{flushleft}
+\begin{flushright}
+\begin{minipage}{9cm}
 Виконав: студент IV курсу, групи АС-122
 
 напряму підготовки
@@ -72,12 +75,14 @@
 
 Керівник Оніщенко Т. В.
 
-Рецензент
-\end{flushleft}
+Рецензент Шапорін Р. О,
+\end{minipage}
+\end{flushright}
 \vspace{45mm}
 \begin{center}Одеса --- 2016\end{center}
 \newpage
 \input{tz_inc.tex}
+\input{summ_inc.tex}
 \newpage
 \makeatletter\renewcommand{\@oddhead}{\hfil\thepage}\makeatother
 
@@ -94,4 +99,7 @@
 \input{pp_pw6_inc.tex}
 \input{pp_pw7_inc.tex}
 \input{conclus_inc.tex}
+\input{bibl_inc.tex}
+\input{add_imgs.tex}
+\input{add_code.tex}
 \end{document}
