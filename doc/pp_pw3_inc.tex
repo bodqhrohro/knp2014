@@ -69,7 +69,6 @@ FK & Слухач & idListener & int(6) & Ні & \\
  & Оцінка & mark & tinyint(3) & Так & \\
 FK & Ким змінено & affectedBy & varchar(32) & Ні & \\
 }
-\newpage
 \dbtable{Платежі}{payments}{
 PK & Ідентифікатор & idPayment & int(6) & Ні & A\_I\\
 FK & Слухач курсу & idCL & int(6) & Ні & \\
@@ -96,7 +95,6 @@ PK & Назва & name & varchar(64) & Ні & \\
  & Мітка & label & varchar(128) & Так & \\
  & Значення & value & float & Так & \\
 }
-\newpage
 \dbtable{Заняття}{lessons}{
 PK & Ідентифікатор & idLesson & int(11) & Ні & A\_I\\
 FK & Курс & idCourse & int(11) & Ні & \\
