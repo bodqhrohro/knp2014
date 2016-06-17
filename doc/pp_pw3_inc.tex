@@ -15,8 +15,6 @@
 
 Як і на діаграмі концептуальних класів, клас Course характеризується високою зв'язністю та має найбільшу кількість атрибутів. Також високу зв'язність має AccessControl, що відповідає висновку з пункту 1.2.1.
 
-\bigbreak
-\subsection{База даних}
 \def\dbhead{
  \hline
  \Centering Ключ &
@@ -35,12 +33,14 @@
  #3
  \hline
  \end{supertabular}
- \\[-3mm]
+ \\[-5mm]
 }
 \newcommand{\tabheader}[2]{
  #1 \emph{(#2)}
 }
 \setlength{\tabcolsep}{3pt}
+\bigbreak
+\subsection{База даних}
 \dbtable{Слухачі}{listeners}{
 PK & Ідентифікатор & idListener & int(6) & Ні & A\_I\\
  & Ім'я & Name & varchar(30) & Так & \\
@@ -69,6 +69,7 @@ FK & Слухач & idListener & int(6) & Ні & \\
  & Оцінка & mark & tinyint(3) & Так & \\
 FK & Ким змінено & affectedBy & varchar(32) & Ні & \\
 }
+\newpage
 \dbtable{Платежі}{payments}{
 PK & Ідентифікатор & idPayment & int(6) & Ні & A\_I\\
 FK & Слухач курсу & idCL & int(6) & Ні & \\
@@ -109,7 +110,7 @@ PK & Логін & login & varchar(32) & Ні & \\
  & Тип & type & tinyint(1) & Ні & 0..2 (Оператор, Адміністратор, Переглядач)\\
  & Ключ сесії & sessionid & text & Так & \\
 }
-\bigbreak
+\\ \bigbreak
 \subsection{Оцінка алгоритмічної складності}
 \bigbreak
 На рис. А.6 зазначено складну операцію розрахунку вартості за даними з БД. Вона реалізується наступним SQL-запитом:
@@ -131,8 +132,7 @@ SELECT ifnull(s1,0)*ifnull(c1,0)+ifnull(s2,0)*ifnull(c2,0) FROM ((
 ) c2) ON 1=1;
 \end{verbatim}
 }
-
-\FloatBarrier
+\newpage
 План виконання запиту:
 \begin{enumerate}
 \item Вибірка вмісту таблиці courses
