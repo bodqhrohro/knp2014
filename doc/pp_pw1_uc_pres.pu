@@ -1,0 +1,91 @@
+@startuml
+
+skinparam usecaseFontSize 36
+
+:Слухач: as Listener
+:Оператор: as Operator
+:Адміністратор: as Admin
+:Викладач: as Teacher
+
+Operator <|-u- Admin
+
+(Керувати курсами) as (courses)
+ (C) as (courses_c)
+ (R) as (courses_r)
+ (U) as (courses_u)
+ (D) as (courses_d)
+(Керувати слухачами) as (listeners)
+ (C) as (listeners_c)
+ (R) as (listeners_r)
+ (U) as (listeners_u)
+ (D) as (listeners_d)
+(Створити заявку) as (application)
+(Створити звіт) as (report)
+(Керувати обліковими записами) as (accounts)
+ (Обробити новий обліковий запис) as (accounts_proc)
+ (R) as (accounts_r)
+ (Скинути пароль) as (accounts_reset)
+ (D) as (accounts_d)
+(Керувати викладачами) as (teachers)
+ (C) as (teachers_c)
+ (R) as (teachers_r)
+ (U) as (teachers_u)
+ (D) as (teachers_d)
+(Керувати розкладом) as (timetable)
+ (C) as (timetable_c)
+ (R) as (timetable_r)
+ (U) as (timetable_u)
+ (D) as (timetable_d)
+(Налаштувати коефіціент) as (coefsetup)
+(Обробити заявку) as (application_proc)
+(Авторизуватися) as (authorization)
+(Зареєструватися) as (registration)
+(Записати на курс) as (enroll)
+(Відрахувати з курсу) as (senddown)
+(Прийняти оплату) as (payment)
+
+Operator -d-> courses
+ courses <.d. courses_c : <<extend>>
+ courses <..d. courses_r : <<extend>>
+  Listener -l-> courses_r
+ courses <.d. courses_u : <<extend>>
+ courses <.d. courses_d : <<extend>>
+Operator -r-> listeners
+ listeners <.u. listeners_c : <<extend>>
+ listeners <.d. listeners_r : <<extend>>
+ listeners <.d. listeners_u : <<extend>>
+ listeners <.u. listeners_d : <<extend>>
+Listener <-l- application
+Operator -u--> report
+ report <.u. (Створити звіт за період) : <<extend>>
+ report <.u. (Створити звіт за курсом) : <<extend>>
+Admin -u--> accounts
+ accounts <.u. accounts_proc : <<extend>>
+ accounts <.u. accounts_r : <<extend>>
+ accounts <.u. accounts_reset : <<extend>>
+ accounts <.u. accounts_d : <<extend>>
+Operator -l-> teachers
+ teachers <.u. teachers_c : <<extend>>
+ teachers <.u. teachers_r : <<extend>>
+ teachers <.d. teachers_u : <<extend>>
+ teachers <.u. teachers_d : <<extend>>
+Operator -d-> timetable
+ timetable <.d. timetable_c : <<extend>>
+ timetable <.d. timetable_r : <<extend>>
+  Listener -r-> timetable_r
+  Teacher -l-> timetable_r
+ timetable <.d. timetable_u : <<extend>>
+ timetable <.d. timetable_d : <<extend>>
+Admin -u-> coefsetup
+Operator -l-> application_proc
+Listener -r-> registration
+Teacher -u-> registration
+Operator -d---> registration
+Listener -r-> authorization
+Teacher -u-> authorization
+Operator -d---> authorization
+Operator -u--> enroll
+Operator -u---> senddown
+Operator -r-> payment
+
+@enduml

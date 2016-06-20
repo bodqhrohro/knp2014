@@ -1,0 +1,35 @@
+@startuml
+
+skinparam classFontSize 26
+skinparam classArrowFontSize 18
+
+class Коефіціент
+class "Обліковий запис" as account
+class Слухач
+class Викладач
+class Курс
+class "Слухач курсу" as course_listener
+class Платіж
+class Звіт
+class Заявка
+class "Звіт за період" as term_report
+class "Звіт за курсом" as course_report
+class Розклад
+class Заняття
+
+Викладач "1..2" -u-> "*" Курс : вести
+Слухач "1" -d-> "*" Заявка : створювати
+Заявка "*" -d-> "1" Курс : на
+Курс "1" -l> "1" Розклад : має
+term_report "*" -l> "*" Курс : містити
+course_report "1" --> "1" Курс : за яким
+course_listener "*" -u-> "1" Слухач : чий
+course_listener "*" -d-> "1" Курс : за який
+Платіж "*" -l> "1" course_listener : за що
+
+Розклад "1" *-d- "*" Заняття : складається з
+
+course_report -u-|> Звіт
+term_report -r|> Звіт
+
+@enduml

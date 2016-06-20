@@ -10,3 +10,7 @@ imglist:
 	grep -R imglabel *.tex|grep -oP '(?<=imglabel{).*(?=})'|paste -sd,|sed 's/,/, /g' > dpl4_imglist
 sectionlist:
 	grep -R '\\section{' *_inc.tex|grep -oP '(?<=\\section{).*(?=})'|paste -sd,|sed 's/,/, /g' > dpl4_sectionlist
+ucpres:
+	plantuml pp_pw1_uc_pres.pu
+	plantuml pp_pw3_conc_pres.pu
+	plantuml pp_pw3_clas_pres.pu
